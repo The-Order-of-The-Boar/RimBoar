@@ -1,4 +1,6 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 # install vcpkg
 git clone https://github.com/Microsoft/vcpkg.git

@@ -1,0 +1,6 @@
+/build/
+/vcpkg/
+/.cache/
+/rimboar
+/compile_commands.json
+

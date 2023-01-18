@@ -8,7 +8,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(rimboar CXX)
 
-add_library(rimboar_int src/__placeholder__.cpp)
+add_library(rimboar_int src/logging/source_location.cpp)
 target_include_directories(rimboar_int INTERFACE src)
 
 add_executable(rimboar src/main/main.cpp)
@@ -30,24 +30,53 @@ if ((NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") AND (NOT "${CMAKE_CXX_COMPIL
     message(FATAL "unsupported compiler")
 endif()
 
-target_link_libraries(rimboar PRIVATE
 
-    $<$<CONFIG:RELEASE,PROFILE>:-flto>
-
-    $<$<CONFIG:SANITIZE>:-fsanitize=address>
-    $<$<CONFIG:SANITIZE>:-fsanitize=undefined>
-)
+foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
     
-target_compile_options(rimboar PRIVATE
-    
-    -std=c++20
-    -pedantic -Wall -Wextra
-    -fdiagnostics-color=always
+    target_link_libraries(${target} PRIVATE
 
-    $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
+        $<$<CONFIG:RELEASE,PROFILE>:-flto>
 
-    $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
-    $<$<CONFIG:RELEASE,PROFILE>:-O3>
-    $<$<CONFIG:RELEASE,PROFILE>:-flto>
-    $<$<CONFIG:RELEASE,PROFILE>:-march=native>
-)
+        $<$<CONFIG:SANITIZE>:-fsanitize=address>
+        $<$<CONFIG:SANITIZE>:-fsanitize=undefined>
+    )
+
+    target_compile_options(${target} PRIVATE
+
+        -std=c++20
+        -pedantic -Wall -Wextra
+        -fdiagnostics-color=always
+
+        $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
+
+        $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
+        $<$<CONFIG:RELEASE,PROFILE>:-O3>
+        $<$<CONFIG:RELEASE,PROFILE>:-flto>
+        $<$<CONFIG:RELEASE,PROFILE>:-march=native>
+    )
+
+endforeach()
+
+
+
+# target_link_libraries(rimboar PRIVATE
+# 
+#     $<$<CONFIG:RELEASE,PROFILE>:-flto>
+# 
+#     $<$<CONFIG:SANITIZE>:-fsanitize=address>
+#     $<$<CONFIG:SANITIZE>:-fsanitize=undefined>
+# )
+#     
+# target_compile_options(rimboar PRIVATE
+#     
+#     -std=c++20
+#     -pedantic -Wall -Wextra
+#     -fdiagnostics-color=always
+# 
+#     $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
+# 
+#     $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
+#     $<$<CONFIG:RELEASE,PROFILE>:-O3>
+#     $<$<CONFIG:RELEASE,PROFILE>:-flto>
+#     $<$<CONFIG:RELEASE,PROFILE>:-march=native>
+# )

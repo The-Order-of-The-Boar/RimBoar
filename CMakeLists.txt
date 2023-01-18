@@ -40,14 +40,14 @@ target_link_libraries(rimboar PRIVATE
     
 target_compile_options(rimboar PRIVATE
     
-    -std=c++17
+    -std=c++20
     -pedantic -Wall -Wextra
     -fdiagnostics-color=always
 
     $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
 
-    $<$<CONFIG:RELEASE,PROFILE,SANITIZE>:-DNDEBUG>
-    $<$<CONFIG:RELEASE,PROFILE,SANITIZE>:-O0>
+    $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
+    $<$<CONFIG:RELEASE,PROFILE>:-O3>
     $<$<CONFIG:RELEASE,PROFILE>:-flto>
     $<$<CONFIG:RELEASE,PROFILE>:-march=native>
 )

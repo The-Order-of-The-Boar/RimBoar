@@ -4,6 +4,10 @@
     "name": "rimboar",
     "dependencies": [
         
+        {
+            "name": "catch2",
+            "version>=": "3.1.0"
+        }
     ],
 
     "builtin-baseline": "dbd30811862212d24bf929db99361c7c12326783"

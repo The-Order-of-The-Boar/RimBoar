@@ -3,11 +3,25 @@
 cmake_minimum_required(VERSION 3.22.1)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
 # project config
+
 project(rimboar CXX)
-add_executable(rimboar src/main.cpp)
+
+add_library(rimboar_int src/__placeholder__.cpp)
+target_include_directories(rimboar_int INTERFACE src)
+
+add_executable(rimboar src/main/main.cpp)
+target_link_libraries(rimboar PRIVATE rimboar_int)
+
+add_executable(test_rimboar src/tests/test.cpp)
+target_link_libraries(test_rimboar PRIVATE rimboar_int)
+
 
 # dependencies
+
+find_package(Catch2 REQUIRED)
+target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
 
 
 # flags

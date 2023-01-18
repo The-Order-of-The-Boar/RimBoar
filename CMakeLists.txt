@@ -56,27 +56,3 @@ foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
     )
 
 endforeach()
-
-
-
-# target_link_libraries(rimboar PRIVATE
-# 
-#     $<$<CONFIG:RELEASE,PROFILE>:-flto>
-# 
-#     $<$<CONFIG:SANITIZE>:-fsanitize=address>
-#     $<$<CONFIG:SANITIZE>:-fsanitize=undefined>
-# )
-#     
-# target_compile_options(rimboar PRIVATE
-#     
-#     -std=c++20
-#     -pedantic -Wall -Wextra
-#     -fdiagnostics-color=always
-# 
-#     $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
-# 
-#     $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
-#     $<$<CONFIG:RELEASE,PROFILE>:-O3>
-#     $<$<CONFIG:RELEASE,PROFILE>:-flto>
-#     $<$<CONFIG:RELEASE,PROFILE>:-march=native>
-# )

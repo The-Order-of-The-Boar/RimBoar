@@ -8,7 +8,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(rimboar CXX)
 
-add_library(rimboar_int src/logging/source_location.cpp)
+add_library(rimboar_int src/__placeholder__.cpp)
 target_include_directories(rimboar_int INTERFACE src)
 
 add_executable(rimboar src/main/main.cpp)

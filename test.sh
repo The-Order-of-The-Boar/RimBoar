@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-source scripts/recursive_newer_than.sh
+source scripts/any_newer_than.sh
 
 test_build_type="Debug"
 

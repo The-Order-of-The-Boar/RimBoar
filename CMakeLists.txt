@@ -8,7 +8,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(rimboar CXX)
 
-add_library(rimboar_int src/graphics/graphic_manager.cpp
+add_library(rimboar_int src/main/game_application.cpp
+                        src/graphics/graphic_manager.cpp
                         src/graphics/sdl_handler.cpp
                         src/graphics/imgui_handler.cpp)
 

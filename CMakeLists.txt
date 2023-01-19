@@ -8,7 +8,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(rimboar CXX)
 
-add_library(rimboar_int src/__placeholder__.cpp)
+add_library(rimboar_int
+    
+    src/logging/source_location.cpp
+    src/logging/log.cpp
+)
 target_include_directories(rimboar_int INTERFACE src)
 
 add_executable(rimboar src/main/main.cpp)
@@ -22,6 +26,12 @@ target_link_libraries(test_rimboar PRIVATE rimboar_int)
 
 find_package(Catch2 REQUIRED)
 target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
+
+find_package(fmt REQUIRED)
+target_link_libraries(rimboar_int PUBLIC fmt::fmt)
+
+find_path(RANG_INCLUDE_DIRS "rang.hpp")
+target_include_directories(rimboar_int PUBLIC ${RANG_INCLUDE_DIRS})
 
 
 # flags

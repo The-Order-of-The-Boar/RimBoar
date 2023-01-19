@@ -5,8 +5,13 @@
 
 #include <iostream>
 
+#include <logging/log.hpp>
+
+
 
 int main() {
 
-    std::cout << "rimboar" << std::endl;
+    notice("rimboar");
+    warn("rimboar");
+    panic("rimboar");
 }

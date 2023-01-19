@@ -1,5 +1,6 @@
+#include <SDL.h>
 #include <SDL_video.h>
-#include <graphics/graphic_manager.hpp>
+
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_sdlrenderer.h>
@@ -7,7 +8,8 @@
 #include <assert.h>
 #include <iostream>
 
-#include <SDL.h>
+#include "graphic_manager.hpp"
+
 
 SDLHandler::SDLHandler(const boarglib::Vector2i32 window_size)
     :window_size{window_size}

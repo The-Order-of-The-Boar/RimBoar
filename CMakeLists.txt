@@ -8,13 +8,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(rimboar CXX)
 
-add_library(rimboar_int src/__placeholder__.cpp)
+add_library(rimboar_int src/graphics/graphic_manager.cpp)
 target_include_directories(rimboar_int INTERFACE src)
 
-add_executable(rimboar
-    src/main/main.cpp
-    src/graphics/graphic_manager.cpp
-    )
+add_executable(rimboar src/main/main.cpp)
 
 target_link_libraries(rimboar PRIVATE rimboar_int)
 
@@ -28,10 +25,10 @@ find_package(Catch2 REQUIRED)
 target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
 
 find_package(SDL2 REQUIRED)
-target_link_libraries(rimboar PRIVATE SDL2::SDL2 SDL2::SDL2main)
+target_link_libraries(rimboar_int PUBLIC SDL2::SDL2 SDL2::SDL2main)
 
 find_package(imgui CONFIG REQUIRED)
-target_link_libraries(rimboar PRIVATE imgui::imgui)
+target_link_libraries(rimboar_int PUBLIC imgui::imgui)
 
 # flags
 

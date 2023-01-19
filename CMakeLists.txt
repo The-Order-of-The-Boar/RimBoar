@@ -12,6 +12,7 @@ add_library(rimboar_int
     
     src/logging/source_location.cpp
     src/logging/log.cpp
+    src/logging/assert.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 

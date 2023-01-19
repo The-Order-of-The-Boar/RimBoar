@@ -28,6 +28,11 @@ target_link_libraries(test_rimboar PRIVATE rimboar_int)
 find_package(Catch2 REQUIRED)
 target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
 
+find_package(SDL2 REQUIRED)
+target_link_libraries(rimboar_int PUBLIC SDL2::SDL2 SDL2::SDL2main)
+
+find_package(imgui CONFIG REQUIRED)
+target_link_libraries(rimboar_int PUBLIC imgui::imgui)
 find_package(fmt REQUIRED)
 target_link_libraries(rimboar_int PUBLIC fmt::fmt)
 

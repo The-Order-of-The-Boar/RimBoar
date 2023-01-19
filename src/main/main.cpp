@@ -2,15 +2,15 @@
 // all project files must be included using the external file include syntax, with angle brackets
 // #include <foobar.hpp>
 
-// builtin
+
+//builtin
 #include <iostream>
 
-// local
-#include <logging/log.hpp>
+//local
+#include "./game_application.hpp"
 
-
-
-int main() {
-
-    notice("rimboar");
+int main() 
+{
+    GameApplication rimboar{};
+    rimboar.run();
 }

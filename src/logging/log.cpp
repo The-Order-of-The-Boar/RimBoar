@@ -12,7 +12,7 @@
 std::string format_log(std::string const& type, std::string const& message, SourceLocation location, fmt::color color) {
 
     auto styled = [&](std::string const& text) { return fmt::styled(text, fmt::fg(color)); };
-    return fmt::format("[{}]({}:{}):{}", styled(type), location.filename, location.line_number, styled(message));
+    return fmt::format("[{}]({}:{}): {}", styled(type), location.filename, location.line_number, styled(message));
 }
 
 void log(std::string const& message) {

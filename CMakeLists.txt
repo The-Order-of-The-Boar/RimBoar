@@ -29,7 +29,9 @@ target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain
 
 find_package(SDL2 REQUIRED)
 target_link_libraries(rimboar PRIVATE SDL2::SDL2 SDL2::SDL2main)
-target_link_libraries(test_rimboar PRIVATE SDL2::SDL2 SDL2::SDL2main)
+
+find_package(imgui CONFIG REQUIRED)
+target_link_libraries(rimboar PRIVATE imgui::imgui)
 
 # flags
 

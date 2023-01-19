@@ -1,5 +1,8 @@
-#include <SDL_error.h>
+#include <SDL_video.h>
 #include <graphics/graphic_manager.hpp>
+#include <imgui.h>
+#include <imgui_impl_sdl.h>
+#include <imgui_impl_sdlrenderer.h>
 
 #include <assert.h>
 #include <iostream>
@@ -44,6 +47,7 @@ SDLHandler::SDLHandler(const boarglib::Vector2i32 window_size)
 
 SDLHandler::~SDLHandler()
 {
+    std::cout << "destroyed sdl\n";
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window);
     SDL_Quit();
@@ -61,11 +65,52 @@ void SDLHandler::render()
 
     SDL_RenderFillRect(this->renderer, &test_rect);
 
+    ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+
     SDL_RenderPresent(this->renderer);
 }
 
+
+ImGuiHandler::ImGuiHandler(SDL_Window*  window, SDL_Renderer* renderer)
+{
+    IMGUI_CHECKVERSION();
+
+    ImGui::CreateContext();
+    ImGuiIO& io{ImGui::GetIO()};
+
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
+    ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
+    ImGui_ImplSDLRenderer_Init(renderer);
+}
+
+ImGuiHandler::~ImGuiHandler()
+{
+    std::cout << "destroyed imgui\n";
+    ImGui_ImplSDLRenderer_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+    ImGui::DestroyContext();
+}
+
+void ImGuiHandler::render()
+{
+    ImGui_ImplSDLRenderer_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    bool panel_visible = true;
+    ImGui::Begin("RimBoar",&panel_visible);
+    ImGui::Text("Tynan Sylvester be aware. A new Crusade is coming!");
+    ImGui::End();
+
+    ImGui::Render();
+    
+}
+
+
 GraphicManager::GraphicManager(boarglib::Vector2i32 window_size)
-    :sdl_handler{window_size}
+    :sdl_handler{window_size}, 
+     imgui_handler(sdl_handler.window, sdl_handler.renderer)
 {
 
 }
@@ -75,31 +120,9 @@ GraphicManager::~GraphicManager()
 
 }
 
-void GraphicManager::process_input()
-{
-    SDL_Event event;
-
-    while(SDL_PollEvent(&event))
-    {
-        if(event.type == SDL_QUIT)
-            this->shall_quit = true;
-        else if(event.type == SDL_KEYDOWN)
-        {
-            switch (event.key.keysym.sym)
-            {
-                case SDLK_ESCAPE:
-                    this->shall_quit = true;
-                    continue;
-                
-                default:
-                    continue;
-            }
-
-        }
-    }
-}
-
 void GraphicManager::render()
 {
+    //SDL must render after ImGui, because ImGui actually only creates the frame that is drawn bt SDL
+    this->imgui_handler.render();
     this->sdl_handler.render();
 }

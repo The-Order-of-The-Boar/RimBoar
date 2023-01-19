@@ -7,6 +7,8 @@
 //third party
 #include <SDL.h>
 
+#include "../logging/log.hpp"
+
 void GameApplication::handle_input()
 {
     SDL_Event event;
@@ -31,7 +33,7 @@ void GameApplication::handle_input()
 
 void GameApplication::run()
 {
-    std::cout << "RimBoar lives!" << std::endl;
+    notice("RimBoar lives!");
 
     while(!shall_quit)
     {

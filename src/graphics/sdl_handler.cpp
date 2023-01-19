@@ -2,6 +2,7 @@
 #include "./sdl_handler.hpp"
 
 //builtin
+#include <SDL_error.h>
 #include <assert.h>
 #include <iostream>
 
@@ -9,38 +10,26 @@
 #include <SDL.h>
 #include <imgui_impl_sdlrenderer.h>
 
+//local
+#include "../logging/assert.hpp"
+
 SDLHandler::SDLHandler(const boarglib::Vector2i32 window_size)
     :window_size{window_size}
 {
     const auto sdl_init_status =  SDL_Init(SDL_INIT_VIDEO);
-    if(sdl_init_status != 0 )
-    {
-        std::cout << SDL_GetError() << std::endl;
-        assert(sdl_init_status == 0);
-    }
+    rb_runtime_assert(sdl_init_status == 0, SDL_GetError()); 
 
     constexpr uint32_t WINDOW_FLAGS = SDL_WINDOW_SHOWN;
     this->window = SDL_CreateWindow("RimBoar", 
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
             window_size.x, window_size.y, WINDOW_FLAGS);
-    if (this->window == NULL)
-    {
-        std::cout << SDL_GetError() << std::endl;
-        assert(this->window != NULL);
-    }
+    rb_runtime_assert(this->window != NULL, SDL_GetError());
 
     constexpr uint32_t RENDERER_FLAGS = SDL_RENDERER_ACCELERATED;
     this->renderer = SDL_CreateRenderer(window, -1 ,RENDERER_FLAGS);
-    if( this->renderer == NULL )
-    {
-        std::cout << SDL_GetError() << std::endl;
-        assert(this->renderer == NULL);
-    }
-    else{
-        SDL_SetRenderDrawColor(this->renderer, 0,0,0,0);
-    }
+    rb_runtime_assert(this->renderer != NULL, SDL_GetError());
 
-    std::cout << "Started SDLHandler\n";
+    SDL_SetRenderDrawColor(this->renderer, 0,0,0,0);
 }
 
 SDLHandler::~SDLHandler()

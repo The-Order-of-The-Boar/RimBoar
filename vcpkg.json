@@ -11,10 +11,6 @@
         {
             "name": "fmt",
             "version>=": "9.0.0"
-        },
-        {
-            "name": "rang",
-            "version>=": "3.2"
         }
     ],
 

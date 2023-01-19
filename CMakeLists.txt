@@ -30,9 +30,6 @@ target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain
 find_package(fmt REQUIRED)
 target_link_libraries(rimboar_int PUBLIC fmt::fmt)
 
-find_path(RANG_INCLUDE_DIRS "rang.hpp")
-target_include_directories(rimboar_int PUBLIC ${RANG_INCLUDE_DIRS})
-
 
 # flags
 

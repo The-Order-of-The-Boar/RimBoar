@@ -1,4 +1,7 @@
 
+//builtin
+#include <functional>
+
 //local
 #include "../data_structures/vector.hpp"
 

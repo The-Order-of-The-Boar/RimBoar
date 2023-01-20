@@ -17,6 +17,7 @@ add_library(rimboar_int
     src/graphics/graphic_manager.cpp
     src/graphics/imgui_handler.cpp
     src/graphics/sdl_handler.cpp
+    src/scenes/menu_scene.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 

@@ -37,8 +37,12 @@ target_link_libraries(rimboar_int PUBLIC SDL2::SDL2 SDL2::SDL2main)
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(rimboar_int PUBLIC imgui::imgui)
+
 find_package(fmt REQUIRED)
 target_link_libraries(rimboar_int PUBLIC fmt::fmt)
+
+find_package(glm REQUIRED)
+target_link_libraries(rimboar_int PUBLIC glm::glm)
 
 
 # flags

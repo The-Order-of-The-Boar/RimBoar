@@ -13,7 +13,7 @@
 //local
 #include "../logging/assert.hpp"
 
-SDLHandler::SDLHandler(const boarglib::Vector2i32 window_size)
+SDLHandler::SDLHandler(const glm::i32vec2 window_size)
     :window_size{window_size}
 {
     const auto sdl_init_status =  SDL_Init(SDL_INIT_VIDEO);

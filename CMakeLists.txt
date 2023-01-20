@@ -19,6 +19,7 @@ add_library(rimboar_int
     src/graphics/sdl_handler.cpp
     src/scenes/menu_scene.cpp
     src/scenes/game_scene.cpp
+    src/utils/time_utils.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 

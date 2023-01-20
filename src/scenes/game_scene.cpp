@@ -10,12 +10,12 @@
 
 GameScene::GameScene()
 {
-    notice("Game scene started");
+
 }
 
 GameScene::~GameScene()
 {
-    notice("Game Scene freed");
+    
 }
 
 

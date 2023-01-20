@@ -9,14 +9,17 @@
 #include "../logging/log.hpp"
 #include "scene.hpp"
 
+#include <thread>
+#include <chrono>
+
 MenuScene::MenuScene()
 {
-    notice("Menu scene started");
+
 }
 
 MenuScene::~MenuScene()
 {
-    notice("Menu scene freed");
+
 }
 
 
@@ -48,7 +51,6 @@ void MenuScene::update_hud()
         this->scene_status.close_scene = true;
         this->scene_status.next_scene = QUIT;
     }
-
 
     ImGui::End();
 }

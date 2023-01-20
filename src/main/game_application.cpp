@@ -14,6 +14,7 @@
 #include "../logging/log.hpp"
 #include "../scenes/menu_scene.hpp"
 #include "../scenes/game_scene.hpp"
+#include "../utils/time_utils.hpp"
 
 void GameApplication::handle_input()
 {
@@ -40,6 +41,7 @@ void GameApplication::handle_input()
 
 void GameApplication::change_scene(const SceneID scene_id)
 {
+    std::unique_ptr<Scene> new_scene;
     switch(scene_id)
     {
         case QUIT:
@@ -65,11 +67,17 @@ void GameApplication::run()
 
     this->change_scene(MENU);
 
+    TimeMeasurer frame_timer{"",TimeMeasurer::SECOND};
+
 
     while(!shall_quit)
     {
+        const double delta_time = frame_timer.get_time();
+        frame_timer.restart();
+
         this->handle_input();
-        //this->current_scene->update_func(0.1);
+
+        this->current_scene->update(delta_time);
         this->graphic_manager.render();
 
         if(this->current_scene->scene_status.close_scene)

@@ -34,5 +34,6 @@ public:
 
     //Executed each frame inside ImGuiHandler, access to ImGui rendering
     virtual void update_hud(){};
+
 };
 

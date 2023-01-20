@@ -1,3 +1,4 @@
+#pragma once
 
 // extern
 #include <glm/vec2.hpp>

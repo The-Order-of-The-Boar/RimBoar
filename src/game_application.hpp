@@ -1,3 +1,4 @@
+#pragma once
 
 //local
 #include "./graphics/graphic_manager.hpp"

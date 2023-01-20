@@ -1,6 +1,6 @@
 
 //local
-#include "../graphics/graphic_manager.hpp"
+#include "./graphics/graphic_manager.hpp"
 
 class GameApplication
 {

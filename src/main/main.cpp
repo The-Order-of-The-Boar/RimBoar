@@ -7,7 +7,7 @@
 #include <iostream>
 
 //local
-#include "./game_application.hpp"
+#include <game_application.hpp>
 
 int main() 
 {

@@ -10,7 +10,7 @@ project(rimboar CXX)
 
 add_library(rimboar_int
     
-    src/main/game_application.cpp
+    src/game_application.cpp
     src/logging/source_location.cpp
     src/logging/log.cpp
     src/logging/assert.cpp

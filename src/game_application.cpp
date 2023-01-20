@@ -7,7 +7,7 @@
 //third party
 #include <SDL.h>
 
-#include "../logging/log.hpp"
+#include "./logging/log.hpp"
 
 void GameApplication::handle_input()
 {

@@ -1,15 +1,14 @@
 #pragma once
 
-//local
+//local 
 #include "./scene.hpp"
 
-class MenuScene : public Scene
+class GameScene : public Scene
 {
 public:
-    MenuScene();
-    ~MenuScene();
+    GameScene();
+    ~GameScene();
 
     void update(const double delta);
     void update_hud();
-
 };

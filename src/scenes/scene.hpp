@@ -4,20 +4,25 @@
 #include <optional>
 #include <functional>
 #include <memory>
+#include <iostream>
+
+enum SceneID
+{
+    QUIT,
+    MENU,
+    GAME,
+};
+
+struct SceneFinalizationStatus
+{
+    bool close_scene = false;
+    SceneID next_scene = QUIT;
+};
 
 class Scene
 {
-    struct SceneFinalizationStatus
-    {
-        bool close_scene = false;
-        std::optional< std::shared_ptr<Scene>> next_scene;
-    };
-
-
 public:
     SceneFinalizationStatus scene_status{};
-
-    std::function<void(void)> setup_func; //Executed once when scene is loaded
 
     //Executed each frame, no access to rendering
     std::function<void(const double)> update_func; 
@@ -28,5 +33,4 @@ public:
     //Executed each frame inside ImGuiHandler, acess to ImGui rendering
     std::function<void(void)> hud_func;
 };
-
 

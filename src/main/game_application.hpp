@@ -10,7 +10,7 @@ class GameApplication
 private:
     bool shall_quit = false;
 public:
-    std::shared_ptr<Scene> current_scene;
+    std::unique_ptr<Scene> current_scene = nullptr;
 
 public:
     GraphicManager graphic_manager{boarglib::Vector2i32{1280,720}};
@@ -19,6 +19,6 @@ public:
 
 private:
     void handle_input();
-    void change_scene(std::shared_ptr<Scene> new_scene);
+    void change_scene(const SceneID scene_id);
 
 };

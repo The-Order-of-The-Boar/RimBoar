@@ -6,19 +6,20 @@
 
 //local
 #include "../logging/log.hpp"
+#include "scene.hpp"
 
 MenuScene::MenuScene()
 {
-    this->setup_func = std::bind(&MenuScene::setup, this);
     this->update_func = std::bind(&MenuScene::update, this, std::placeholders::_1);
     this->hud_func = std::bind(&MenuScene::update_hud, this);
+    notice("Menu scene started");
 }
 
-
-void MenuScene::setup()
+MenuScene::~MenuScene()
 {
-    notice("Menu was setuped");
+    notice("Menu scene freed");
 }
+
 
 void MenuScene::update(const double delta)
 {
@@ -31,5 +32,18 @@ void MenuScene::update_hud()
     bool panel_visible = true;
     ImGui::Begin("RimBoar",&panel_visible);
     ImGui::Text("Tynan Sylvester be aware. A new Crusade is coming!");
+    
+    if(ImGui::Button("Play"))
+    {
+        this->scene_status.close_scene = true;
+        this->scene_status.next_scene = GAME;
+    }
+    else if(ImGui::Button("Quit"))
+    {
+        this->scene_status.close_scene = true;
+        this->scene_status.next_scene = QUIT;
+    }
+
+
     ImGui::End();
 }

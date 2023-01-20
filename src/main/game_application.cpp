@@ -3,20 +3,23 @@
 
 //builtin
 #include <iostream>
+#include <memory>
 
 //third party
 #include <SDL.h>
-#include <memory>
+#include <imgui_impl_sdl.h>
 
 //local
 #include "../logging/log.hpp"
 #include "../scenes/menu_scene.hpp"
+#include "../scenes/game_scene.hpp"
 
 void GameApplication::handle_input()
 {
     SDL_Event event;
     while(SDL_PollEvent(&event))
     {
+        ImGui_ImplSDL2_ProcessEvent(&event);
         if(event.type == SDL_QUIT)
             shall_quit = true;
         else if(event.type == SDL_KEYDOWN)
@@ -34,18 +37,31 @@ void GameApplication::handle_input()
     }
 }
 
-void GameApplication::change_scene(std::shared_ptr<Scene> new_scene)
+void GameApplication::change_scene(const SceneID scene_id)
 {
-    this->current_scene = new_scene;
+    switch(scene_id)
+    {
+        case QUIT:
+            this->shall_quit = true;
+            return;
+        case MENU:
+            this->current_scene = std::make_unique<MenuScene>();
+            break;
+        case GAME:
+            this->current_scene = std::make_unique<GameScene>();
+            break;
+        default:
+            panic("Invaid Scene id");
+    }
+    
     this->graphic_manager.current_hud_func = current_scene->hud_func;
-    this->current_scene->setup_func();
 }
 
 void GameApplication::run()
 {
     notice("RimBoar lives!");
 
-    this->change_scene(std::make_shared<MenuScene>());
+    this->change_scene(MENU);
 
 
     while(!shall_quit)
@@ -53,6 +69,9 @@ void GameApplication::run()
         this->handle_input();
         this->current_scene->update_func(0.1);
         this->graphic_manager.render();
+
+        if(this->current_scene->scene_status.close_scene)
+            this->change_scene(this->current_scene->scene_status.next_scene);
     }
     
 }

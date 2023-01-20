@@ -4,6 +4,7 @@
 //builtin
 #include <iostream>
 #include <memory>
+#include <functional>
 
 //third party
 #include <SDL.h>
@@ -54,7 +55,8 @@ void GameApplication::change_scene(const SceneID scene_id)
             panic("Invaid Scene id");
     }
     
-    this->graphic_manager.current_hud_func = current_scene->hud_func;
+    this->graphic_manager.render_func = std::bind(&Scene::render, this->current_scene.get(), std::placeholders::_1);
+    this->graphic_manager.hud_func = std::bind(&Scene::update_hud, this->current_scene.get());
 }
 
 void GameApplication::run()
@@ -67,7 +69,7 @@ void GameApplication::run()
     while(!shall_quit)
     {
         this->handle_input();
-        this->current_scene->update_func(0.1);
+        //this->current_scene->update_func(0.1);
         this->graphic_manager.render();
 
         if(this->current_scene->scene_status.close_scene)

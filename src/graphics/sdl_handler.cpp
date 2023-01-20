@@ -12,6 +12,7 @@
 
 //local
 #include "../logging/assert.hpp"
+#include "imgui_handler.hpp"
 
 SDLHandler::SDLHandler(const boarglib::Vector2i32 window_size)
     :window_size{window_size}
@@ -39,19 +40,10 @@ SDLHandler::~SDLHandler()
     SDL_Quit();
 }
 
-void SDLHandler::render()
+void SDLHandler::render(std::function<void(SDL_Renderer*)> render_func)
 {
-    SDL_SetRenderDrawColor(this->renderer, 0,0,255,255);
-    SDL_RenderClear(this->renderer);
-
-    SDL_SetRenderDrawColor(this->renderer, 255, 0, 0, 255);
-    const SDL_Rect test_rect{
-            this->window_size.x/2 - 50, 
-            this->window_size.y/2 - 50, 100, 100};
-
-    SDL_RenderFillRect(this->renderer, &test_rect);
+    render_func(this->renderer);
 
     ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
-
     SDL_RenderPresent(this->renderer);
 }

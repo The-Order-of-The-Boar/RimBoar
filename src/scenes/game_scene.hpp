@@ -10,5 +10,6 @@ public:
     ~GameScene();
 
     void update(const double delta);
+    void render(SDL_Renderer* renderer);
     void update_hud();
 };

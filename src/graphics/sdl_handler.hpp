@@ -19,7 +19,7 @@ public:
     SDLHandler(const boarglib::Vector2i32 window_size);
     ~SDLHandler();
 
-    void render();
+    void render(std::function<void(SDL_Renderer*)> render_func);
 
 };
 

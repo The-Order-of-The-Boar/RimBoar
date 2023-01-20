@@ -6,6 +6,8 @@
 #include <memory>
 #include <iostream>
 
+struct SDL_Renderer;
+
 enum SceneID
 {
     QUIT,
@@ -25,12 +27,12 @@ public:
     SceneFinalizationStatus scene_status{};
 
     //Executed each frame, no access to rendering
-    std::function<void(const double)> update_func; 
+    virtual void update(const double delta){};
 
-    //TODO
-    //Structure to hold game objects to be rendered on SDLHandler    
+    //Executed each frame inside SDL_Handler, access to SDL rendering
+    virtual void render(SDL_Renderer* renderer){};
 
-    //Executed each frame inside ImGuiHandler, acess to ImGui rendering
-    std::function<void(void)> hud_func;
+    //Executed each frame inside ImGuiHandler, access to ImGui rendering
+    virtual void update_hud(){};
 };
 

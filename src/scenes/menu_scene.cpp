@@ -3,6 +3,7 @@
 
 //third party
 #include <imgui.h>
+#include <SDL.h>
 
 //local
 #include "../logging/log.hpp"
@@ -10,8 +11,6 @@
 
 MenuScene::MenuScene()
 {
-    this->update_func = std::bind(&MenuScene::update, this, std::placeholders::_1);
-    this->hud_func = std::bind(&MenuScene::update_hud, this);
     notice("Menu scene started");
 }
 
@@ -24,6 +23,12 @@ MenuScene::~MenuScene()
 void MenuScene::update(const double delta)
 {
     //notice("updating menu");
+}
+
+void MenuScene::render(SDL_Renderer* renderer)
+{
+    SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+    SDL_RenderClear(renderer);
 }
 
 void MenuScene::update_hud()

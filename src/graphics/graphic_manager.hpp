@@ -16,7 +16,8 @@ private:
     ImGuiHandler imgui_handler;
 
 public:
-    std::function<void(void)> current_hud_func    = []{};
+    std::function<void(SDL_Renderer*)> render_func = [](SDL_Renderer*){};
+    std::function<void(void)> hud_func = []{};
 
 public:
     GraphicManager(boarglib::Vector2i32 window_size);

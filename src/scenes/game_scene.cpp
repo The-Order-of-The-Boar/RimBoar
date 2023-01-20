@@ -2,6 +2,7 @@
 
 //third party
 #include <imgui.h>
+#include <SDL.h>
 
 //local
 #include "../logging/log.hpp"
@@ -9,8 +10,6 @@
 
 GameScene::GameScene()
 {
-    this->update_func = std::bind(&GameScene::update, this, std::placeholders::_1);
-    this->hud_func = std::bind(&GameScene::update_hud, this);
     notice("Game scene started");
 }
 
@@ -23,6 +22,21 @@ GameScene::~GameScene()
 void GameScene::update(const double delta)
 {
     //notice("updating game");
+}
+
+
+void GameScene::render(SDL_Renderer* renderer)
+{
+    SDL_SetRenderDrawColor(renderer, 0,0,255,255);
+    SDL_RenderClear(renderer);
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    const SDL_Rect test_rect{
+            640 - 50, 
+            360 - 50,
+            100, 100};
+
+    SDL_RenderFillRect(renderer, &test_rect);
 }
 
 void GameScene::update_hud()

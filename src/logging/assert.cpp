@@ -9,17 +9,17 @@
 
 
 
-void rb_assert(bool result, std::string const& message, SourceLocation location) {
-
-    #ifndef NDEBUG
+void rb_assert(bool result, std::string const& message, SourceLocation location)
+{
+#ifndef NDEBUG
 
     rb_runtime_assert(result, message, location);
 
-    #endif
+#endif
 }
 
-void rb_runtime_assert(bool result, std::string const& message, SourceLocation location) {
-
+void rb_runtime_assert(bool result, std::string const& message, SourceLocation location)
+{
     if (result == true)
         return;
 
@@ -29,6 +29,6 @@ void rb_runtime_assert(bool result, std::string const& message, SourceLocation l
         panic_message = "assertion failed";
     else
         panic_message = fmt::format("assertion failed: {}", message);
-    
+
     panic(panic_message, location);
 }

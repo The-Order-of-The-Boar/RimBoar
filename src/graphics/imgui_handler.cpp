@@ -1,15 +1,15 @@
-//header
+// header
 #include "./imgui_handler.hpp"
 
-//builtin
+// builtin
 #include <iostream>
 
-//third-party
+// third-party
+#include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_sdlrenderer.h>
-#include <imgui.h>
 
-ImGuiHandler::ImGuiHandler(SDL_Window*  window, SDL_Renderer* renderer)
+ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer)
 {
     IMGUI_CHECKVERSION();
 
@@ -36,10 +36,9 @@ void ImGuiHandler::render()
     ImGui::NewFrame();
 
     bool panel_visible = true;
-    ImGui::Begin("RimBoar",&panel_visible);
+    ImGui::Begin("RimBoar", &panel_visible);
     ImGui::Text("Tynan Sylvester be aware. A new Crusade is coming!");
     ImGui::End();
 
     ImGui::Render();
-    
 }

@@ -11,6 +11,7 @@ jobs:
   init:
     runs-on: ubuntu-latest
 
+    steps:
     - uses: actions/checkout@v3
     - name: init
       run: ./init.sh
@@ -28,5 +29,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    steps:
     - name test:
       run: ./test.sh

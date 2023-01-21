@@ -18,3 +18,5 @@ jobs:
       run: ./init.sh
     - name: make
       run: ./build.sh Debug main
+    - name:
+      run: ./test.sh

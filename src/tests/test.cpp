@@ -14,5 +14,5 @@ static bool __set_assert_exception = []
 
 TEST_CASE("testing_system")
 {
-    REQUIRE(true);
+    REQUIRE(false);
 }

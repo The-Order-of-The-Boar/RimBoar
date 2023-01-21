@@ -31,7 +31,7 @@ public:
     virtual void update(__attribute__((unused)) double const delta){};
 
     // Executed each frame inside SDL_Handler, access to SDL rendering
-    virtual void render(__attribute__((unused)) SDL_Renderer* renderer){};
+    virtual void render(__attribute__((unused)) SDL_Renderer* renderer) const {};
 
     // Executed each frame inside ImGuiHandler, access to ImGui rendering
     virtual void update_hud(){};

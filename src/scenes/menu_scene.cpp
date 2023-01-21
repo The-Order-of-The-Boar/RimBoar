@@ -22,7 +22,7 @@ void MenuScene::update(__attribute__((unused)) double const delta)
     // notice("updating menu");
 }
 
-void MenuScene::render(SDL_Renderer* renderer)
+void MenuScene::render(SDL_Renderer* renderer) const
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);

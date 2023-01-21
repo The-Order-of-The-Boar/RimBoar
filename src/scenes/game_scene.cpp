@@ -19,7 +19,7 @@ void GameScene::update(__attribute__((unused)) double const delta)
 }
 
 
-void GameScene::render(SDL_Renderer* renderer)
+void GameScene::render(SDL_Renderer* renderer) const
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderClear(renderer);

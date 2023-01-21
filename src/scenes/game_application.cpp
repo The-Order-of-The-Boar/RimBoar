@@ -57,9 +57,8 @@ void GameApplication::change_scene(const SceneID scene_id)
             panic("Invaid Scene id");
     }
 
-    this->graphic_manager.render_func =
-        std::bind(&Scene::render, this->current_scene.get(), std::placeholders::_1);
-    this->graphic_manager.hud_func = std::bind(&Scene::update_hud, this->current_scene.get());
+    this->graphic_manager.render_func = [&](SDL_Renderer* renderer){ current_scene->render(renderer); };
+    this->graphic_manager.hud_func = [&](){ current_scene->update_hud(); };
 }
 
 void GameApplication::run()

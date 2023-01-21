@@ -15,11 +15,11 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-    
+
 }
 
 
-void GameScene::update(const double delta)
+void GameScene::update(__attribute__((unused)) const double delta)
 {
     //notice("updating game");
 }

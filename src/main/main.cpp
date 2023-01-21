@@ -3,13 +3,13 @@
 // #include <foobar.hpp>
 
 
-//builtin
+// builtin
 #include <iostream>
 
-//local
-#include "./game_application.hpp"
+// local
+#include <scenes/game_application.hpp>
 
-int main() 
+int main()
 {
     GameApplication rimboar{};
     rimboar.run();

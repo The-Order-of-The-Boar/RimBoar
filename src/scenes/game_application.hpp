@@ -1,9 +1,12 @@
 #pragma once
 
+//builtin
+#include <memory>
+
 //local
 #include "../graphics/graphic_manager.hpp"
 #include "../scenes/scene.hpp"
-#include <memory>
+
 
 class GameApplication
 {
@@ -13,7 +16,7 @@ public:
     std::unique_ptr<Scene> current_scene = nullptr;
 
 public:
-    GraphicManager graphic_manager{boarglib::Vector2i32{1280,720}};
+    GraphicManager graphic_manager{glm::i32vec2{1280,720}};
 
     void run();
 

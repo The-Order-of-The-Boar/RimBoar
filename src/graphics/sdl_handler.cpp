@@ -1,36 +1,34 @@
-//header
+// header
 #include "./sdl_handler.hpp"
 
-//builtin
+// builtin
 #include <SDL_error.h>
 #include <assert.h>
 #include <iostream>
 
-//third party
+// third party
 #include <SDL.h>
 #include <imgui_impl_sdlrenderer.h>
 
-//local
+// local
 #include "../logging/assert.hpp"
 #include "imgui_handler.hpp"
 
-SDLHandler::SDLHandler(const boarglib::Vector2i32 window_size)
-    :window_size{window_size}
+SDLHandler::SDLHandler(const glm::i32vec2 window_size) : window_size{window_size}
 {
-    const auto sdl_init_status =  SDL_Init(SDL_INIT_VIDEO);
-    rb_runtime_assert(sdl_init_status == 0, SDL_GetError()); 
+    auto const sdl_init_status = SDL_Init(SDL_INIT_VIDEO);
+    rb_runtime_assert(sdl_init_status == 0, SDL_GetError());
 
     constexpr uint32_t WINDOW_FLAGS = SDL_WINDOW_SHOWN;
-    this->window = SDL_CreateWindow("RimBoar", 
-            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-            window_size.x, window_size.y, WINDOW_FLAGS);
+    this->window = SDL_CreateWindow("RimBoar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                    window_size.x, window_size.y, WINDOW_FLAGS);
     rb_runtime_assert(this->window != NULL, SDL_GetError());
 
     constexpr uint32_t RENDERER_FLAGS = SDL_RENDERER_ACCELERATED;
-    this->renderer = SDL_CreateRenderer(window, -1 ,RENDERER_FLAGS);
+    this->renderer = SDL_CreateRenderer(window, -1, RENDERER_FLAGS);
     rb_runtime_assert(this->renderer != NULL, SDL_GetError());
 
-    SDL_SetRenderDrawColor(this->renderer, 0,0,0,0);
+    SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
 }
 
 SDLHandler::~SDLHandler()

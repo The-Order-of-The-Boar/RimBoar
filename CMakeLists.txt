@@ -10,13 +10,13 @@ project(rimboar CXX)
 
 add_library(rimboar_int
     
-    src/main/game_application.cpp
     src/logging/source_location.cpp
     src/logging/log.cpp
     src/logging/assert.cpp
     src/graphics/graphic_manager.cpp
     src/graphics/imgui_handler.cpp
     src/graphics/sdl_handler.cpp
+    src/scenes/game_application.cpp
     src/scenes/menu_scene.cpp
     src/scenes/game_scene.cpp
     src/utils/time_utils.cpp
@@ -40,8 +40,12 @@ target_link_libraries(rimboar_int PUBLIC SDL2::SDL2 SDL2::SDL2main)
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(rimboar_int PUBLIC imgui::imgui)
+
 find_package(fmt REQUIRED)
 target_link_libraries(rimboar_int PUBLIC fmt::fmt)
+
+find_package(glm REQUIRED)
+target_link_libraries(rimboar_int PUBLIC glm::glm)
 
 
 # flags

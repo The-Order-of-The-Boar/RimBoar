@@ -23,7 +23,7 @@ MenuScene::~MenuScene()
 }
 
 
-void MenuScene::update(const double delta)
+void MenuScene::update(__attribute__((unused)) const double delta)
 {
     //notice("updating menu");
 }

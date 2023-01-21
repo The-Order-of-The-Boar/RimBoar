@@ -1,12 +1,12 @@
-//header
+// header
 #include "./game_application.hpp"
 
-//builtin
+// builtin
 #include <iostream>
 #include <memory>
 #include <functional>
 
-//third party
+// third party
 #include <SDL.h>
 #include <imgui_impl_sdl.h>
 
@@ -19,19 +19,19 @@
 void GameApplication::handle_input()
 {
     SDL_Event event;
-    while(SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
     {
         ImGui_ImplSDL2_ProcessEvent(&event);
         if(event.type == SDL_QUIT)
             shall_quit = true;
-        else if(event.type == SDL_KEYDOWN)
+        else if (event.type == SDL_KEYDOWN)
         {
             switch (event.key.keysym.sym)
             {
                 case SDLK_ESCAPE:
                     shall_quit = true;
                     continue;
-                
+
                 default:
                     continue;
             }
@@ -83,5 +83,4 @@ void GameApplication::run()
         if(this->current_scene->scene_status.close_scene)
             this->change_scene(this->current_scene->scene_status.next_scene);
     }
-    
 }

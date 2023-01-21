@@ -1,9 +1,8 @@
+#pragma once
+
 //builtin
 #include <chrono>
-#include <string>
 #include <iostream>
-#include <unordered_map>
-#include <vector>
 
 //local
 #include "../logging/log.hpp"

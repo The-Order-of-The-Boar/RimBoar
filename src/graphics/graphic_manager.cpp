@@ -1,20 +1,12 @@
-//header
+// header
 #include "graphic_manager.hpp"
 
-//builtin
-#include <iostream>
-
-GraphicManager::GraphicManager(boarglib::Vector2i32 window_size)
-    :sdl_handler{window_size}, 
-     imgui_handler(sdl_handler.window, sdl_handler.renderer)
+GraphicManager::GraphicManager(glm::i32vec2 window_size) :
+    sdl_handler{window_size}, imgui_handler(sdl_handler.window, sdl_handler.renderer)
 {
-
 }
 
-GraphicManager::~GraphicManager()
-{
-
-}
+GraphicManager::~GraphicManager() {}
 
 void GraphicManager::render()
 {

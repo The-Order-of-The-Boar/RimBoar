@@ -1,9 +1,12 @@
+#pragma once
 
 //builtin
 #include <functional>
 
-//local
-#include "../data_structures/vector.hpp"
+
+// extern
+#include <glm/vec2.hpp>
+
 
 struct SDL_Window;
 struct SDL_Renderer;
@@ -11,15 +14,16 @@ struct SDL_Renderer;
 class SDLHandler
 {
 public:
-    boarglib::Vector2i32 window_size;
+
+    glm::i32vec2 window_size;
     SDL_Window* window;
     SDL_Renderer* renderer;
 
 public:
-    SDLHandler(const boarglib::Vector2i32 window_size);
+
+    SDLHandler(const glm::i32vec2 window_size);
     ~SDLHandler();
 
     void render(std::function<void(SDL_Renderer*)> render_func);
 
 };
-

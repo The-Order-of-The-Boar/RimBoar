@@ -1,8 +1,8 @@
 
 // builtin
-#include <cstdint>
-#include <cstddef>
 #include <array>
+#include <cstddef>
+#include <cstdint>
 
 // local
 #include "logging/assert.hpp"
@@ -24,7 +24,7 @@ TEST_CASE("slotmap", "[core]")
 
 
     REQUIRE(smap.size() == 0);
-    
+
 
     SECTION("")
     {
@@ -33,7 +33,7 @@ TEST_CASE("slotmap", "[core]")
 
         auto rand_idx = (size_t)GENERATE(0, 1, UINT32_MAX);
         auto rand_version = (uint32_t)GENERATE(0, 1, UINT32_MAX);
-        
+
         REQUIRE(smap.contains(Key{.idx = rand_idx, .version = rand_version}) == false);
     }
 
@@ -66,9 +66,9 @@ TEST_CASE("slotmap", "[core]")
     {
         auto key1 = smap.push(1);
         smap.remove(key1);
-        
+
         REQUIRE(smap.get(key1).has_value() == false);
-        
+
         auto key2 = smap.push(2);
 
         REQUIRE(key1.idx == key2.idx);

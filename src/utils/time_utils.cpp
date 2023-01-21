@@ -6,7 +6,7 @@
 #include <fmt/format.h>
 #include <string_view>
 
-TimeMeasurer::TimeMeasurer(std::string&& message, const TimeUnit time_unit) :
+TimeMeasurer::TimeMeasurer(std::string&& message, const TimeUnit time_unit):
     message{message}, time_unit{time_unit}, start_time{std::chrono::high_resolution_clock::now()}
 {
 }

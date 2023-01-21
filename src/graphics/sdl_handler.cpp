@@ -14,7 +14,7 @@
 #include "../logging/assert.hpp"
 #include "imgui_handler.hpp"
 
-SDLHandler::SDLHandler(const glm::i32vec2 window_size) : window_size{window_size}
+SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
 {
     auto const sdl_init_status = SDL_Init(SDL_INIT_VIDEO);
     rb_runtime_assert(sdl_init_status == 0, SDL_GetError());

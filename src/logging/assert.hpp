@@ -11,16 +11,16 @@
 
 inline bool assert_exception = false;
 
-class AssertException final: std::exception
+class AssertException final : std::exception
 {
-    private:
+private:
 
-        std::string message;
+    std::string message;
 
-    public:
+public:
 
-        AssertException(std::string _message);
-        const char* what() const noexcept override;
+    AssertException(std::string _message);
+    char const* what() const noexcept override;
 };
 
 

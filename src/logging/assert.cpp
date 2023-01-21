@@ -10,7 +10,7 @@
 
 
 AssertException::AssertException(std::string _message): message(std::move(_message)) {}
-const char* AssertException::what() const noexcept
+char const* AssertException::what() const noexcept
 {
     return this->message.c_str();
 }
@@ -41,6 +41,4 @@ void rb_runtime_assert(bool result, std::string const& message, SourceLocation l
         throw AssertException{panic_message};
     else
         panic(panic_message, location);
-
-    
 }

@@ -2,18 +2,18 @@
 #include "./game_application.hpp"
 
 // builtin
+#include <functional>
 #include <iostream>
 #include <memory>
-#include <functional>
 
 // third party
 #include <SDL.h>
 #include <imgui_impl_sdl.h>
 
-//local
+// local
 #include "../logging/log.hpp"
-#include "../scenes/menu_scene.hpp"
 #include "../scenes/game_scene.hpp"
+#include "../scenes/menu_scene.hpp"
 #include "../utils/time_utils.hpp"
 
 void GameApplication::handle_input()
@@ -22,7 +22,7 @@ void GameApplication::handle_input()
     while (SDL_PollEvent(&event))
     {
         ImGui_ImplSDL2_ProcessEvent(&event);
-        if(event.type == SDL_QUIT)
+        if (event.type == SDL_QUIT)
             shall_quit = true;
         else if (event.type == SDL_KEYDOWN)
         {
@@ -42,7 +42,7 @@ void GameApplication::handle_input()
 void GameApplication::change_scene(const SceneID scene_id)
 {
     std::unique_ptr<Scene> new_scene;
-    switch(scene_id)
+    switch (scene_id)
     {
         case QUIT:
             this->shall_quit = true;
@@ -56,8 +56,9 @@ void GameApplication::change_scene(const SceneID scene_id)
         default:
             panic("Invaid Scene id");
     }
-    
-    this->graphic_manager.render_func = std::bind(&Scene::render, this->current_scene.get(), std::placeholders::_1);
+
+    this->graphic_manager.render_func =
+        std::bind(&Scene::render, this->current_scene.get(), std::placeholders::_1);
     this->graphic_manager.hud_func = std::bind(&Scene::update_hud, this->current_scene.get());
 }
 
@@ -67,12 +68,12 @@ void GameApplication::run()
 
     this->change_scene(MENU);
 
-    TimeMeasurer frame_timer{"",TimeMeasurer::SECOND};
+    TimeMeasurer frame_timer{"", TimeMeasurer::SECOND};
 
 
-    while(!shall_quit)
+    while (!shall_quit)
     {
-        const double delta_time = frame_timer.get_time();
+        double const delta_time = frame_timer.get_time();
         frame_timer.restart();
 
         this->handle_input();
@@ -80,7 +81,7 @@ void GameApplication::run()
         this->current_scene->update(delta_time);
         this->graphic_manager.render();
 
-        if(this->current_scene->scene_status.close_scene)
+        if (this->current_scene->scene_status.close_scene)
             this->change_scene(this->current_scene->scene_status.next_scene);
     }
 }

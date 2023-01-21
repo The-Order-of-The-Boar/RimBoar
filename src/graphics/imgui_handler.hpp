@@ -1,6 +1,6 @@
 #pragma once
 
-//builtin
+// builtin
 #include <functional>
 
 class SDL_Window;

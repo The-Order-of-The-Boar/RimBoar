@@ -1,6 +1,6 @@
 #pragma once
 
-//builtin
+// builtin
 #include <functional>
 
 
@@ -25,5 +25,4 @@ public:
     ~SDLHandler();
 
     void render(std::function<void(SDL_Renderer*)> render_func);
-
 };

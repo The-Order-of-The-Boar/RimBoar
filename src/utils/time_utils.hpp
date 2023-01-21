@@ -1,10 +1,10 @@
 #pragma once
 
-//builtin
+// builtin
 #include <chrono>
 #include <iostream>
 
-//local
+// local
 #include "../logging/log.hpp"
 
 struct TimeUnit
@@ -16,9 +16,10 @@ struct TimeUnit
 class TimeMeasurer
 {
 public:
-    constexpr static const TimeUnit SECOND     {"s",1000000};
-    constexpr static const TimeUnit MILLISECOND{"ms",1000};
-    constexpr static const TimeUnit MICROSECOND{"us",1};
+
+    constexpr static const TimeUnit SECOND{"s", 1000000};
+    constexpr static const TimeUnit MILLISECOND{"ms", 1000};
+    constexpr static const TimeUnit MICROSECOND{"us", 1};
 
 private:
 
@@ -28,12 +29,12 @@ private:
     std::chrono::system_clock::time_point start_time;
 
 public:
+
     TimeMeasurer(std::string&& message = "", const TimeUnit time_unit = MILLISECOND);
 
     void restart();
-    
+
     double get_time() const;
 
     void print_time() const;
-
 };

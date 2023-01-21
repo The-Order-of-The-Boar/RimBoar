@@ -1,9 +1,9 @@
 #pragma once
 
-//builtin
+// builtin
 #include <functional>
 
-//local
+// local
 #include "./imgui_handler.hpp"
 #include "./sdl_handler.hpp"
 
@@ -20,8 +20,9 @@ private:
     ImGuiHandler imgui_handler;
 
 public:
-    std::function<void(SDL_Renderer*)> render_func = [](SDL_Renderer*){};
-    std::function<void(void)> hud_func = []{};
+
+    std::function<void(SDL_Renderer*)> render_func = [](SDL_Renderer*) {};
+    std::function<void(void)> hud_func = [] {};
 
 public:
 

@@ -8,3 +8,5 @@ RimBoar has a Scene system where each scene has 3 functions:
 
 * render: This function is executed inside SDLHandler and has access to it's renderer and graphical context. It is designed to render the Game Objects and World inside a Scene, with no changes to the state. 
 
+![Scene System Diagram](Scenes.png)
+

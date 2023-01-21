@@ -29,16 +29,13 @@ ImGuiHandler::~ImGuiHandler()
     ImGui::DestroyContext();
 }
 
-void ImGuiHandler::render()
+void ImGuiHandler::update(std::function<void(void)> hud_func)
 {
     ImGui_ImplSDLRenderer_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    bool panel_visible = true;
-    ImGui::Begin("RimBoar", &panel_visible);
-    ImGui::Text("Tynan Sylvester be aware. A new Crusade is coming!");
-    ImGui::End();
+    hud_func();
 
     ImGui::Render();
 }

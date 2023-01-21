@@ -1,5 +1,8 @@
 #pragma once
 
+// builtin
+#include <functional>
+
 class SDL_Window;
 class SDL_Renderer;
 
@@ -10,5 +13,5 @@ public:
     ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer);
     ~ImGuiHandler();
 
-    void render();
+    void update(std::function<void(void)> hud_func);
 };

@@ -10,13 +10,16 @@ project(rimboar CXX)
 
 add_library(rimboar_int
     
-    src/game_application.cpp
     src/logging/source_location.cpp
     src/logging/log.cpp
     src/logging/assert.cpp
     src/graphics/graphic_manager.cpp
     src/graphics/imgui_handler.cpp
     src/graphics/sdl_handler.cpp
+    src/scenes/game_application.cpp
+    src/scenes/menu_scene.cpp
+    src/scenes/game_scene.cpp
+    src/utils/time_utils.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 

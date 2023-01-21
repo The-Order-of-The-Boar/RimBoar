@@ -1,5 +1,9 @@
 #pragma once
 
+// builtin
+#include <functional>
+
+
 // extern
 #include <glm/vec2.hpp>
 
@@ -20,5 +24,5 @@ public:
     SDLHandler(const glm::i32vec2 window_size);
     ~SDLHandler();
 
-    void render();
+    void render(std::function<void(SDL_Renderer*)> render_func);
 };

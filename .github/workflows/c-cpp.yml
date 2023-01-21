@@ -8,8 +8,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  init:
+    runs-on: ubuntu-latest
 
+    - uses: actions/checkout@v3
+    - name: init
+      run: ./init.sh
+
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,5 +24,9 @@ jobs:
       run: ./init.sh
     - name: build
       run: ./build.sh Debug main
+
+  test:
+    runs-on: ubuntu-latest
+
     - name test:
       run: ./test.sh

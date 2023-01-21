@@ -11,9 +11,11 @@ project(rimboar CXX)
 add_library(rimboar_int
     
     src/game_application.cpp
+
     src/logging/source_location.cpp
     src/logging/log.cpp
     src/logging/assert.cpp
+
     src/graphics/graphic_manager.cpp
     src/graphics/imgui_handler.cpp
     src/graphics/sdl_handler.cpp
@@ -23,7 +25,11 @@ target_include_directories(rimboar_int INTERFACE src)
 add_executable(rimboar src/main/main.cpp)
 target_link_libraries(rimboar PRIVATE rimboar_int)
 
-add_executable(test_rimboar src/tests/test.cpp)
+add_executable(test_rimboar
+
+    src/tests/test.cpp
+    src/tests/slotmap.cpp
+)
 target_link_libraries(test_rimboar PRIVATE rimboar_int)
 
 
@@ -50,7 +56,6 @@ target_link_libraries(rimboar_int PUBLIC glm::glm)
 if ((NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") AND (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
     message(FATAL "unsupported compiler")
 endif()
-
 
 foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
     

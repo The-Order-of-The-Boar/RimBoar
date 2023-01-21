@@ -9,6 +9,13 @@
 
 
 
+AssertException::AssertException(std::string _message): message(std::move(_message)) {}
+const char* AssertException::what() const noexcept
+{
+    return this->message.c_str();
+}
+
+
 void rb_assert(bool result, std::string const& message, SourceLocation location)
 {
 #ifndef NDEBUG
@@ -20,7 +27,7 @@ void rb_assert(bool result, std::string const& message, SourceLocation location)
 
 void rb_runtime_assert(bool result, std::string const& message, SourceLocation location)
 {
-    if (result == true)
+    if (result == true) [[unlikely]]
         return;
 
     std::string panic_message;
@@ -30,5 +37,10 @@ void rb_runtime_assert(bool result, std::string const& message, SourceLocation l
     else
         panic_message = fmt::format("assertion failed: {}", message);
 
-    panic(panic_message, location);
+    if (assert_exception == true)
+        throw AssertException{panic_message};
+    else
+        panic(panic_message, location);
+
+    
 }

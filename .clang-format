@@ -53,3 +53,4 @@ SpacesInLineCommentPrefix:
     Minimum: 1
     Maximum: -1
 MaxEmptyLinesToKeep: 3
+SpaceBeforeCtorInitializerColon: false

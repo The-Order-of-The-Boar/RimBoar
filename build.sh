@@ -38,5 +38,3 @@ esac
 cmake -B build -S . -DCMAKE_BUILD_TYPE=$build_type -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
 cmake --build build -j`getconf _NPROCESSORS_ONLN` --target rimboar_int $target
 echo -n $build_type > build/BUILD_TYPE
-
-cp build/rimboar .

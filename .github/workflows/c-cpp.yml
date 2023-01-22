@@ -27,3 +27,16 @@ jobs:
       run: ./init.sh
     - name: test
       run: ./test.sh
+      
+  codeQL-analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: 'cpp'

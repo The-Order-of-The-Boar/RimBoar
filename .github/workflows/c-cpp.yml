@@ -40,7 +40,9 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: 'cpp'
-      
+        
+    - name: init
+      run: ./init.sh
     - name: build
       run: ./build.sh Debug main
         

@@ -54,6 +54,9 @@ target_link_libraries(rimboar_int PUBLIC fmt::fmt)
 find_package(glm REQUIRED)
 target_link_libraries(rimboar_int PUBLIC glm::glm)
 
+find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
+target_include_directories(rimboar_int PUBLIC ${STB_INCLUDE_DIRS})
+
 
 # flags
 

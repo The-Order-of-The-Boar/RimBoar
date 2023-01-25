@@ -61,19 +61,20 @@ void GameApplication::change_scene(const SceneID scene_id)
             panic("Invalid Scene id");
     }
 
-    this->graphic_manager->render_func = [&](SDL_Renderer* renderer){ current_scene->render(renderer); };
-    this->graphic_manager->hud_func = [&](){ current_scene->update_hud(); };
+    this->graphic_manager->render_func = [&](SDL_Renderer* renderer)
+    { current_scene->render(renderer); };
+    this->graphic_manager->hud_func = [&]() { current_scene->update_hud(); };
 }
 
 void GameApplication::setup()
 {
     config = std::make_unique<Config>(); // default configs
-    this->graphic_manager = std::make_unique<GraphicManager>(glm::u32vec2{config->window_width, config->window_height});
+    this->graphic_manager =
+        std::make_unique<GraphicManager>(glm::u32vec2{config->window_width, config->window_height});
 }
 
 void GameApplication::run()
 {
-
     notice("RimBoar lives!");
 
     this->change_scene(MENU);

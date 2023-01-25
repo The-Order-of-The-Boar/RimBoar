@@ -8,9 +8,9 @@
 
 // local
 #include <application/game_application.hpp>
+#include <logging/log.hpp>
 #include <slotmap/slotmap.hpp>
 #include <utils/system.hpp>
-#include <logging/log.hpp>
 
 // extern
 #include <fmt/format.h>

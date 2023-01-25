@@ -2,8 +2,8 @@
 #include "./imgui_handler.hpp"
 
 // local
-#include "../logging/log.hpp"
 #include "../application/config.hpp"
+#include "../logging/log.hpp"
 
 // builtin
 #include <iostream>

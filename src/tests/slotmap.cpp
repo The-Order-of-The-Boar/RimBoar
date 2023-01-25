@@ -1,9 +1,9 @@
 
 // builtin
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <algorithm>
 
 // local
 #include "logging/assert.hpp"
@@ -90,8 +90,8 @@ TEST_CASE("slotmap", "[core]")
     }
 };
 
-TEST_CASE("slotmap iterator") {
-
+TEST_CASE("slotmap iterator")
+{
     SlotMap<int> smap;
 
     REQUIRE(smap.begin() == smap.end());
@@ -107,7 +107,8 @@ TEST_CASE("slotmap iterator") {
             (void)smap.push((int)value);
 
         REQUIRE(smap.size() == 3);
-        REQUIRE(std::mismatch(values.begin(), values.end(), smap.begin(), smap.end()) == std::pair{values.end(), smap.end()});
+        REQUIRE(std::mismatch(values.begin(), values.end(), smap.begin(), smap.end()) ==
+                std::pair{values.end(), smap.end()});
 
         REQUIRE(*(++smap.begin()) == 2);
         REQUIRE(*(smap.begin()++) == 1);

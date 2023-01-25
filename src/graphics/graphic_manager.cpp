@@ -2,7 +2,8 @@
 #include "graphic_manager.hpp"
 
 GraphicManager::GraphicManager(glm::i32vec2 window_size):
-    sdl_handler{window_size}, imgui_handler(sdl_handler.window, sdl_handler.renderer, sdl_handler.display_scale)
+    sdl_handler{window_size},
+    imgui_handler(sdl_handler.window, sdl_handler.renderer, sdl_handler.display_scale)
 {
 }
 

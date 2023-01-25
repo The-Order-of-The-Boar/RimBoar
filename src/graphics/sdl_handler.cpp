@@ -8,14 +8,14 @@
 
 // third party
 #include <SDL.h>
-#include <imgui_impl_sdlrenderer.h>
 #include <fmt/format.h>
+#include <imgui_impl_sdlrenderer.h>
 
 // local
+#include "../application/config.hpp"
 #include "../logging/assert.hpp"
 #include "../logging/log.hpp"
 #include "imgui_handler.hpp"
-#include "../application/config.hpp"
 
 
 

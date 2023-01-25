@@ -18,11 +18,13 @@ add_library(rimboar_int
     src/graphics/imgui_handler.cpp
     src/graphics/sdl_handler.cpp
 
-    src/scenes/game_application.cpp
     src/scenes/menu_scene.cpp
     src/scenes/game_scene.cpp
+    
+    src/application/game_application.cpp
 
     src/utils/time_utils.cpp
+    src/utils/system.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 
@@ -56,6 +58,9 @@ target_link_libraries(rimboar_int PUBLIC glm::glm)
 
 find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 target_include_directories(rimboar_int PUBLIC ${STB_INCLUDE_DIRS})
+
+find_package(nlohmann_json CONFIG REQUIRED)
+target_link_libraries(rimboar_int PRIVATE nlohmann_json::nlohmann_json)
 
 
 # flags

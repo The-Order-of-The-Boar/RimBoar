@@ -15,6 +15,7 @@
 #include "../logging/assert.hpp"
 #include "../logging/log.hpp"
 #include "imgui_handler.hpp"
+#include "../application/config.hpp"
 
 
 
@@ -35,7 +36,7 @@ SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
 
     auto dpi = this->get_dpi(this->window);
-    this->display_scale = dpi / 90;
+    this->display_scale = dpi / config->default_dpi;
 
     notice(fmt::format("display dpi: {}", dpi));
     notice(fmt::format("application scale: {}", this->display_scale));

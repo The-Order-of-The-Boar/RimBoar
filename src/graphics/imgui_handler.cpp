@@ -1,6 +1,9 @@
 // header
 #include "./imgui_handler.hpp"
+
+// local
 #include "../logging/log.hpp"
+#include "../application/config.hpp"
 
 // builtin
 #include <iostream>
@@ -22,7 +25,9 @@ ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer, float sca
     ImGuiIO& io{ImGui::GetIO()};
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-    io.Fonts->AddFontFromFileTTF("cousine_regular.ttf", 13 * scale);
+
+    auto font_path = fmt::format("assets/{}", config->default_font);
+    io.Fonts->AddFontFromFileTTF(font_path.c_str(), config->font_pixel_size * scale);
     ImGui::GetStyle().ScaleAllSizes(scale);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);

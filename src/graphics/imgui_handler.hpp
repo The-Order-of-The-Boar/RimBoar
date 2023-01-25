@@ -10,7 +10,7 @@ class ImGuiHandler
 {
 public:
 
-    ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer);
+    ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer, float scale);
     ~ImGuiHandler();
 
     void update(std::function<void(void)> hud_func);

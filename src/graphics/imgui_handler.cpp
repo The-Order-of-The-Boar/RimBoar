@@ -1,15 +1,20 @@
 // header
 #include "./imgui_handler.hpp"
+#include "../logging/log.hpp"
 
 // builtin
 #include <iostream>
 
 // third-party
+#include <SDL.h>
+#include <fmt/format.h>
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_sdlrenderer.h>
 
-ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer)
+
+
+ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer, float scale)
 {
     IMGUI_CHECKVERSION();
 
@@ -17,6 +22,8 @@ ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer)
     ImGuiIO& io{ImGui::GetIO()};
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.Fonts->AddFontFromFileTTF("cousine_regular.ttf", 13 * scale);
+    ImGui::GetStyle().ScaleAllSizes(scale);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer_Init(renderer);

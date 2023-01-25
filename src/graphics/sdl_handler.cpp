@@ -9,10 +9,14 @@
 // third party
 #include <SDL.h>
 #include <imgui_impl_sdlrenderer.h>
+#include <fmt/format.h>
 
 // local
 #include "../logging/assert.hpp"
+#include "../logging/log.hpp"
 #include "imgui_handler.hpp"
+
+
 
 SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
 {
@@ -29,6 +33,12 @@ SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
     rb_runtime_assert(this->renderer != NULL, SDL_GetError());
 
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
+
+    auto dpi = this->get_dpi(this->window);
+    this->display_scale = dpi / 90;
+
+    notice(fmt::format("display dpi: {}", dpi));
+    notice(fmt::format("application scale: {}", this->display_scale));
 }
 
 SDLHandler::~SDLHandler()
@@ -44,4 +54,12 @@ void SDLHandler::render(std::function<void(SDL_Renderer*)> render_func)
 
     ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(this->renderer);
+}
+
+float SDLHandler::get_dpi(SDL_Window* window)
+{
+    auto dindex = SDL_GetWindowDisplayIndex(window);
+    float diagonal;
+    SDL_GetDisplayDPI(dindex, &diagonal, nullptr, nullptr);
+    return diagonal;
 }

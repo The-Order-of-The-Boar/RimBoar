@@ -17,7 +17,6 @@
 
 int main()
 {
-
-    // GameApplication rimboar{};
-    // rimboar.run();
+    GameApplication rimboar{};
+    rimboar.run();
 }

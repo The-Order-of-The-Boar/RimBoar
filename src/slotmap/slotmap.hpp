@@ -97,6 +97,8 @@ private:
     {
     public:
 
+        friend class SlotMap<T>;
+
         using iterator_category = std::forward_iterator_tag;
         using difference_type = size_t;
         using value_type = T;
@@ -110,7 +112,7 @@ private:
 
     private:
 
-        iterator(SlotMap<T>& _slotmap): slotmap(_slotmap), idx(slotmap.first_occupied) {}
+        iterator(SlotMap<T>& _slotmap, size_t _idx): slotmap(_slotmap), idx(_idx) {}
 
     public:
 
@@ -129,7 +131,8 @@ private:
         {
             rb_assert(this->slotmap.valid_index(this->idx));
             this->idx = this->slotmap.data[this->idx].occupied().next_occupied;
-            return this->slotmap.data[this->idx];
+            rb_assert(this->slotmap.valid_index(this->idx) || this->idx == NONE);
+            return *this;
         }
 
         iterator operator++(int) // postfix
@@ -147,9 +150,11 @@ private:
 
         friend bool operator!=(iterator const& a, iterator const& b)
         {
-            return !iterator::operator==(a, b);
+            return !(a == b);
         }
     };
+
+    friend class iterator;
 
 public:
 
@@ -313,6 +318,16 @@ public:
         return this->data.size();
     }
 
+    iterator begin()
+    {
+        return iterator{*this, this->first_occupied};
+    }
+
+    iterator end()
+    {
+        return iterator{*this, NONE};
+    }
+
     // T pop_first();
     // void clear();
 
@@ -324,5 +339,7 @@ private:
 
         this->data.push_back(Slot::new_empty(NONE));
         this->empty_list_head = this->data.size() - 1;
+
+        return empty_list_head;
     }
 };

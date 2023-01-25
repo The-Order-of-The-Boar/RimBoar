@@ -8,9 +8,16 @@
 
 // local
 #include <scenes/game_application.hpp>
+#include <slotmap/slotmap.hpp>
+
+// extern
+#include <fmt/format.h>
+
+
 
 int main()
 {
-    GameApplication rimboar{};
-    rimboar.run();
+
+    // GameApplication rimboar{};
+    // rimboar.run();
 }

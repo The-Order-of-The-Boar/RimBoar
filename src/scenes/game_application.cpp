@@ -15,6 +15,7 @@
 #include "../scenes/game_scene.hpp"
 #include "../scenes/menu_scene.hpp"
 #include "../utils/time_utils.hpp"
+#include "../pathfinding/pathfinder.hpp"
 
 void GameApplication::handle_input()
 {
@@ -64,6 +65,9 @@ void GameApplication::change_scene(const SceneID scene_id)
 void GameApplication::run()
 {
     notice("RimBoar lives!");
+
+    TempWorld temp_world{};
+    Pathfinder pathfinder{&temp_world.connection_graph};
 
     this->change_scene(MENU);
 

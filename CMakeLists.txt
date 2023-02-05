@@ -20,6 +20,9 @@ add_library(rimboar_int
 
     src/scenes/menu_scene.cpp
     src/scenes/game_scene.cpp
+
+    src/renderer/renderer.cpp
+    src/core/world.cpp
     
     src/application/game_application.cpp
 

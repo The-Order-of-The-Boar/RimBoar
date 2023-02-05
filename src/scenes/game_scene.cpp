@@ -1,33 +1,63 @@
 #include "./game_scene.hpp"
 
-// third party
+// builtin
+#include <vector>
+
+// extern
 #include <SDL.h>
+#include <SDL_stdinc.h>
 #include <imgui.h>
+#include <glm/vec2.hpp>
 
 // local
 #include "../logging/log.hpp"
+#include "../logging/assert.hpp"
 #include "scene.hpp"
 
-GameScene::GameScene() {}
+
+
+
+
+
+
+
+
+
+
+
+
+Map create_map(glm::u32vec2 size) {
+
+    auto output = Map{size, [&](glm::u32vec2){ return Tile{.state = Tile::State::Emtpy }; }};
+    return output;
+}
+
+GameScene::GameScene() {
+
+    this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
+    
+    this->world->map.get(1, 1).state = Tile::State::Occupied;
+
+    for (size_t y = 1; y < 9; ++y)
+        this->world->map.get(3, y).state = Tile::State::Wall;
+}
 
 GameScene::~GameScene() {}
 
 
-void GameScene::update(__attribute__((unused)) double const delta)
-{
-    // notice("updating game");
-}
 
+void GameScene::update(double const delta)
+{
+    (void)delta;
+
+}
 
 void GameScene::render(SDL_Renderer* renderer) const
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderClear(renderer);
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    const SDL_Rect test_rect{640 - 50, 360 - 50, 100, 100};
-
-    SDL_RenderFillRect(renderer, &test_rect);
+    this->renderer.render(renderer, *this->world);
 }
 
 void GameScene::update_hud()

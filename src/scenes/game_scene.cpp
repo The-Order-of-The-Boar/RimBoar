@@ -2,13 +2,28 @@
 
 // third party
 #include <SDL.h>
+#include <glm/ext/vector_int2_sized.hpp>
 #include <imgui.h>
 
 // local
 #include "../logging/log.hpp"
 #include "scene.hpp"
+#include "../pathfinding/pathfinder.hpp"
+#include "../utils/print_utils.hpp"
+#include "../utils/time_utils.hpp"
 
-GameScene::GameScene() {}
+GameScene::GameScene()
+{
+    TempWorld game_world{};
+    Pathfinder pathfinder{&game_world.connection_graph, game_world.world_size};
+
+    glm::i32vec2 start{00,0};
+    glm::i32vec2 end{99,99};
+
+    TimeMeasurer path_timer{"Found path in"};
+    const auto path = pathfinder.get_path(start, end);
+    path_timer.print_time();
+}
 
 GameScene::~GameScene() {}
 

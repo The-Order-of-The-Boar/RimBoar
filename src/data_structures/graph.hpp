@@ -1,3 +1,5 @@
+#pragma once
+
 //builtin
 #include <cstdint>
 #include <array>

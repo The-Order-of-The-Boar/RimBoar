@@ -1,3 +1,5 @@
+#pragma once
+
 //builtin
 #include <cstdint>
 #include <glm/ext/vector_int2_sized.hpp>

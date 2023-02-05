@@ -136,7 +136,7 @@ TEST_CASE("Pathfinder Core", "[Pathfinder]")
 {
     RandomGenerator::setup();
     TempWorld world{};
-    Pathfinder pathfinder{&world.connection_graph};
+    Pathfinder pathfinder{&world.connection_graph, world.world_size};
 
     SECTION("Invalid Paths")
     {
@@ -202,7 +202,7 @@ TEST_CASE("Pathfinding Benchmark", "[Pathfinding]")
     
     RandomGenerator::setup();
     TempWorld world{};
-    Pathfinder pathfinder{&world.connection_graph};
+    Pathfinder pathfinder{&world.connection_graph, world.world_size};
 
     BENCHMARK("100 paths benchmark")
     {

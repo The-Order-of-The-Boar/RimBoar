@@ -14,16 +14,12 @@
 #include "../logging/assert.hpp"
 #include "../utils/print_utils.hpp"
 
-int32_t PathfindingNode::get_total_cost() const
+void PathfindingNode::setup(const int32_t movement_cost, const int32_t total_cost, const int32_t origin_id)
 {
-    return this->movement_cost + this->distance_cost;
-}
+    this->movement_cost = movement_cost;
+    this->total_cost = total_cost;
+    this->origin_id = origin_id;
 
-void PathfindingNode::setup(const int32_t parent_movement_cost, const Edge* path, const glm::i32vec2 target)
-{
-    this->origin_id = path->origin_node_id;
-    this->movement_cost = parent_movement_cost + path->cost;
-    this->distance_cost = Pathfinder::manhattan_distance(this->index, target);
     this->initialized = true;
     this->visited = false;
 }
@@ -36,7 +32,7 @@ PathfindingNode* Pathfinder::get_node(const int32_t id)
 
 int32_t Pathfinder::manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target)
 {
-    return abs(pos.x - target.x) + abs(pos.y - target.y);
+    return (abs(pos.x - target.x) + abs(pos.y - target.y)) * 10;
 }
 
 Pathfinder::Pathfinder(const Graph* graph, const int32_t world_size)
@@ -71,6 +67,7 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
             {
                 path.push_back(current_node->index);
                 current_node = this->get_node(current_node->origin_id);
+                std::cout << current_node->index;
             }
             return path;
         }
@@ -81,22 +78,25 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
             const Edge* path = &connections.at(i);
             // Test using value first
             auto node = &this->node_poll.at(path->target_node_id);
+            const int32_t new_movement_cost = current_node->movement_cost + path->cost;
+            const int32_t new_total_cost = new_movement_cost + Pathfinder::manhattan_distance(node->index, target);
+            
             if(!node->initialized)
             {
-                node->setup(current_node->movement_cost, path, target);
+                node->setup(new_movement_cost, new_total_cost, path->origin_node_id);
                 this->open_list.push(node);
             }
             //On open list
-            else if(!node->visited && (current_node->movement_cost + path->cost) < node->get_total_cost())
+            else if(!node->visited && (new_total_cost < node->total_cost))
             {
-                node->setup(current_node->movement_cost, path, target);
+                node->setup(new_movement_cost, new_total_cost, path->origin_node_id);
             }
             //On closed list
-            /*else if( (current_node->movement_cost + path->cost) < node->get_total_cost())
+            else if(new_total_cost < node->total_cost)
             {
-                node->setup(current_node->movement_cost, path, target);
+                node->setup(new_movement_cost, new_total_cost, path->origin_node_id);
                 this->open_list.push(node);
-            }*/
+            }
         }
     }
 

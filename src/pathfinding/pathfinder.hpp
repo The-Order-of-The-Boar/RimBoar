@@ -52,21 +52,17 @@
 
 struct PathfindingNode
 {
-public:
     glm::i32vec2 index;
     int32_t origin_id = -1;
     int32_t id = 0;
 
     int32_t movement_cost = 0;
-    int32_t distance_cost = 0;
+    int32_t total_cost = 0;
     bool visited = false;
     bool initialized = false;
 
-public:
-    //Test storing total cost
-    int32_t get_total_cost() const;
 
-    void setup(const int32_t parent_movement_cost, const Edge* path, const glm::i32vec2 target);
+    void setup(const int32_t movement_cost, const int32_t total_cost, const int32_t origin_id);
 };
 
 
@@ -78,7 +74,7 @@ private:
 
     constexpr static auto pathfinding_node_compare = [](const PathfindingNode* left,const PathfindingNode* right)
     {
-        return (left->distance_cost + left->movement_cost) > (right->distance_cost + right->movement_cost);
+        return left->total_cost > right->total_cost;
     };
 
 

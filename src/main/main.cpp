@@ -7,10 +7,20 @@
 #include <iostream>
 
 // local
-#include <scenes/game_application.hpp>
+#include <application/game_application.hpp>
+#include <logging/log.hpp>
+#include <slotmap/slotmap.hpp>
+#include <utils/system.hpp>
+
+// extern
+#include <fmt/format.h>
+
+
 
 int main()
 {
+    notice(fmt::format("{}", get_binary_path().c_str()));
     GameApplication rimboar{};
+    rimboar.setup();
     rimboar.run();
 }

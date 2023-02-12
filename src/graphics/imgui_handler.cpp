@@ -1,15 +1,23 @@
 // header
 #include "./imgui_handler.hpp"
 
+// local
+#include "../application/config.hpp"
+#include "../logging/log.hpp"
+
 // builtin
 #include <iostream>
 
 // third-party
+#include <SDL.h>
+#include <fmt/format.h>
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_sdlrenderer.h>
 
-ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer)
+
+
+ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer, float scale)
 {
     IMGUI_CHECKVERSION();
 
@@ -17,6 +25,10 @@ ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer)
     ImGuiIO& io{ImGui::GetIO()};
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
+    auto font_path = fmt::format("assets/{}", config->default_font);
+    io.Fonts->AddFontFromFileTTF(font_path.c_str(), config->font_pixel_size * scale);
+    ImGui::GetStyle().ScaleAllSizes(scale);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer_Init(renderer);

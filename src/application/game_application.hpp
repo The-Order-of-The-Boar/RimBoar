@@ -20,8 +20,9 @@ public:
 
 public:
 
-    GraphicManager graphic_manager{glm::i32vec2{1280, 720}};
+    std::unique_ptr<GraphicManager> graphic_manager = nullptr;
 
+    void setup();
     void run();
 
 private:

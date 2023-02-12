@@ -3,6 +3,7 @@
 
 // builtin
 #include <functional>
+#include <glm/ext/vector_uint2_sized.hpp>
 #include <iostream>
 #include <memory>
 
@@ -15,6 +16,9 @@
 #include "../scenes/game_scene.hpp"
 #include "../scenes/menu_scene.hpp"
 #include "../utils/time_utils.hpp"
+#include "config.hpp"
+
+
 
 void GameApplication::handle_input()
 {
@@ -41,7 +45,6 @@ void GameApplication::handle_input()
 
 void GameApplication::change_scene(const SceneID scene_id)
 {
-    std::cout  << "changing\n";
     std::unique_ptr<Scene> new_scene;
     switch (scene_id)
     {
@@ -52,18 +55,22 @@ void GameApplication::change_scene(const SceneID scene_id)
             this->current_scene = std::make_unique<MenuScene>();
             break;
         case GAME:
-            std::cout  << "a\n";
             this->current_scene = std::make_unique<GameScene>();
-            std::cout  << "b\n";
             break;
         default:
-            panic("Invaid Scene id");
+            panic("Invalid Scene id");
     }
-    std::cout  << "changed\n";
 
-    this->graphic_manager.render_func = [&](SDL_Renderer* renderer){ current_scene->render(renderer); };
-    this->graphic_manager.hud_func = [&](){ current_scene->update_hud(); };
-    std::cout  << "cdasdasdasanged\n";
+    this->graphic_manager->render_func = [&](SDL_Renderer* renderer)
+    { current_scene->render(renderer); };
+    this->graphic_manager->hud_func = [&]() { current_scene->update_hud(); };
+}
+
+void GameApplication::setup()
+{
+    config = std::make_unique<Config>(); // default configs
+    this->graphic_manager =
+        std::make_unique<GraphicManager>(glm::u32vec2{config->window_width, config->window_height});
 }
 
 void GameApplication::run()
@@ -75,6 +82,7 @@ void GameApplication::run()
     TimeMeasurer frame_timer{"", TimeMeasurer::SECOND};
 
 
+
     while (!shall_quit)
     {
         double const delta_time = frame_timer.get_time();
@@ -83,7 +91,7 @@ void GameApplication::run()
         this->handle_input();
 
         this->current_scene->update(delta_time);
-        this->graphic_manager.render();
+        this->graphic_manager->render();
 
         if (this->current_scene->scene_status.close_scene)
             this->change_scene(this->current_scene->scene_status.next_scene);

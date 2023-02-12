@@ -1,5 +1,6 @@
 
 // builtin
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -88,3 +89,34 @@ TEST_CASE("slotmap", "[core]")
         REQUIRE_THROWS(smap.unchecked_remove(key));
     }
 };
+
+TEST_CASE("slotmap iterator")
+{
+    SlotMap<int> smap;
+
+    REQUIRE(smap.begin() == smap.end());
+    REQUIRE_THROWS(*smap.begin());
+    REQUIRE_THROWS(++smap.begin());
+    REQUIRE_THROWS(smap.begin()++);
+
+    SECTION("")
+    {
+        auto values = std::array{1, 2, 3};
+
+        for (auto& value: values)
+            (void)smap.push((int)value);
+
+        REQUIRE(smap.size() == 3);
+        REQUIRE(std::mismatch(values.begin(), values.end(), smap.begin(), smap.end()) ==
+                std::pair{values.end(), smap.end()});
+
+        REQUIRE(*(++smap.begin()) == 2);
+        REQUIRE(*(smap.begin()++) == 1);
+
+        auto it = smap.begin();
+        REQUIRE(*(it++) == 1);
+        REQUIRE(*(it++) == 2);
+        REQUIRE(*(it++) == 3);
+        REQUIRE_THROWS(*(it++));
+    }
+}

@@ -30,12 +30,12 @@
         const int diagonal_move_cost = 14;
 
     public:
-        std::array<std::array<TempTile,100>,100> world_tiles;
         const int32_t world_size;
+        std::vector<std::vector<TempTile>> world_tiles;
         Graph connection_graph{static_cast<int32_t>(world_size*world_size)};
 
     public:
-        TempWorld();
+        TempWorld(const int32_t world_size);
         void update_tile_connections(const TempTile* tile);
         void update_connections();
         void set_tile_empty(const glm::i32vec2 index, const bool empty);

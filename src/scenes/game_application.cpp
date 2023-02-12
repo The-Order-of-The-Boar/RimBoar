@@ -41,6 +41,7 @@ void GameApplication::handle_input()
 
 void GameApplication::change_scene(const SceneID scene_id)
 {
+    std::cout  << "changing\n";
     std::unique_ptr<Scene> new_scene;
     switch (scene_id)
     {
@@ -51,14 +52,18 @@ void GameApplication::change_scene(const SceneID scene_id)
             this->current_scene = std::make_unique<MenuScene>();
             break;
         case GAME:
+            std::cout  << "a\n";
             this->current_scene = std::make_unique<GameScene>();
+            std::cout  << "b\n";
             break;
         default:
             panic("Invaid Scene id");
     }
+    std::cout  << "changed\n";
 
     this->graphic_manager.render_func = [&](SDL_Renderer* renderer){ current_scene->render(renderer); };
     this->graphic_manager.hud_func = [&](){ current_scene->update_hud(); };
+    std::cout  << "cdasdasdasanged\n";
 }
 
 void GameApplication::run()

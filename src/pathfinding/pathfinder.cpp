@@ -67,7 +67,6 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
             {
                 path.push_back(current_node->index);
                 current_node = this->get_node(current_node->origin_id);
-                std::cout << current_node->index;
             }
             return path;
         }
@@ -108,11 +107,10 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
 
 
 //TEMPORARY CODE TO TEST PATHFINDING
-    TempWorld::TempWorld()
-        :world_size{static_cast<int32_t>(world_tiles.size())}
+    TempWorld::TempWorld(const int32_t world_size)
+        :world_size{world_size}, world_tiles(world_size, std::vector<TempTile>{static_cast<size_t>(world_size)})
     {
-
-        rb_assert(world_tiles.size() == world_tiles.at(0).size());
+        std::cout << world_size << std::endl;
 
         for(int32_t x = 0; x < world_size; x++)
         {
@@ -122,7 +120,11 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
                 this->world_tiles[x][y].id = x * world_size + y;
             }
         }
+
+        std::cout << "affter\n";
         this->update_connections();
+        std::cout << "end\n";
+
     }
 
     void TempWorld::update_tile_connections(const TempTile* tile)
@@ -159,9 +161,9 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
     void TempWorld::update_connections()
     {
 
-        for(size_t x = 0; x < 100; x++)
+        for(size_t x = 0; x < world_size; x++)
         {
-            for(size_t y = 0; y < 100; y++)
+            for(size_t y = 0; y < world_size; y++)
             {
                 this->update_tile_connections(&this->world_tiles.at(x).at(y));
             }

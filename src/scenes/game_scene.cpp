@@ -14,11 +14,13 @@
 
 GameScene::GameScene()
 {
-    TempWorld game_world{};
+    TimeMeasurer start_time{"Setup temp_world time"};
+    TempWorld game_world{1000};
+    start_time.print_time();
     Pathfinder pathfinder{&game_world.connection_graph, game_world.world_size};
 
     glm::i32vec2 start{00,0};
-    glm::i32vec2 end{99,99};
+    glm::i32vec2 end{999,999};
 
     TimeMeasurer path_timer{"Found path in"};
     const auto path = pathfinder.get_path(start, end);

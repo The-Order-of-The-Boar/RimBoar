@@ -1,50 +1,60 @@
 #include "./game_scene.hpp"
 
-// third party
+// builtin
+#include <vector>
+
+// extern
 #include <SDL.h>
-#include <glm/ext/vector_int2_sized.hpp>
+#include <SDL_stdinc.h>
 #include <imgui.h>
+#include <glm/vec2.hpp>
 
 // local
 #include "../logging/log.hpp"
+#include "../logging/assert.hpp"
 #include "scene.hpp"
 #include "../pathfinding/pathfinder.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"
+#include "../core/world.hpp"
 
-GameScene::GameScene()
-{
-    TimeMeasurer start_time{"Setup temp_world time"};
-    TempWorld game_world{1000};
-    start_time.print_time();
-    Pathfinder pathfinder{&game_world.connection_graph, game_world.world_size};
 
-    glm::i32vec2 start{00,0};
-    glm::i32vec2 end{999,999};
+Map create_map(glm::u32vec2 size) {
 
-    TimeMeasurer path_timer{"Found path in"};
-    const auto path = pathfinder.get_path(start, end);
-    path_timer.print_time();
+    auto output = Map{size, [&](glm::u32vec2){ return Tile{.state = Tile::State::Emtpy }; }};
+    return output;
+}
+
+GameScene::GameScene() {
+
+    this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
+    
+
+    const glm::i32vec2 origin{0,5};
+    const glm::i32vec2 target{4,6};
+
+    const auto path = this->world->map.pathfinder->get_path(origin,target);
+    for(const auto& tile : path)
+        this->world->map.get(tile.x, tile.y).state = Tile::State::Path;
+
 }
 
 GameScene::~GameScene() {}
 
 
-void GameScene::update(__attribute__((unused)) double const delta)
-{
-    // notice("updating game");
-}
 
+void GameScene::update(double const delta)
+{
+    (void)delta;
+
+}
 
 void GameScene::render(SDL_Renderer* renderer) const
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderClear(renderer);
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    const SDL_Rect test_rect{640 - 50, 360 - 50, 100, 100};
-
-    SDL_RenderFillRect(renderer, &test_rect);
+    this->renderer.render(renderer, *this->world);
 }
 
 void GameScene::update_hud()

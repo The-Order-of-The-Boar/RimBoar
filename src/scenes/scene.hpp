@@ -25,14 +25,16 @@ class Scene
 {
 public:
 
+    virtual ~Scene() {};
+
     SceneFinalizationStatus scene_status{};
 
     // Executed each frame, no access to rendering
-    virtual void update(__attribute__((unused)) double const delta){};
+    virtual void update(double const delta) = 0;
 
     // Executed each frame inside SDL_Handler, access to SDL rendering
-    virtual void render(__attribute__((unused)) SDL_Renderer* renderer) const {};
+    virtual void render(SDL_Renderer* renderer) const = 0;
 
     // Executed each frame inside ImGuiHandler, access to ImGui rendering
-    virtual void update_hud(){};
+    virtual void update_hud() = 0;
 };

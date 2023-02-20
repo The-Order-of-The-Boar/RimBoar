@@ -28,7 +28,7 @@ jobs:
     - name: test
       run: ./test.sh
     
-  test:
+  benchmark:
     runs-on: ubuntu-latest
 
     steps:

@@ -33,7 +33,7 @@ std::unique_ptr<World> create_world(const glm::i32vec2 size)
 TEST_CASE("Pathfinding Benchmark", "[!benchmark]")
 { 
     RandomGenerator::setup();
-    const glm::i32vec2 size{500,500};
+    const glm::i32vec2 size{100,100};
     auto world = create_world(size);
     Pathfinder pathfinder{world->map.graph_representation.get(), size};
 
@@ -47,7 +47,7 @@ TEST_CASE("Pathfinding Benchmark", "[!benchmark]")
     };
 
 
-    BENCHMARK("500 paths benchmark")
+    BENCHMARK("100 paths benchmark")
     {
         const glm::i32vec2 origin{0,0};
         for(int32_t x = 10; x < size.x; x+=10)

@@ -40,12 +40,12 @@ class Map {
         size_t size_x;
         size_t size_y;
         
-        std::unique_ptr<Graph> graph_representation;
 
     private:
         void update_tile_connections(const glm::i32vec2 index);
 
     public:
+        std::unique_ptr<Graph> graph_representation;
         std::unique_ptr<Pathfinder> pathfinder;
         
         //Temporary

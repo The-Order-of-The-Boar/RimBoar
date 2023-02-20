@@ -13,6 +13,7 @@
 //local
 #include "../logging/assert.hpp"
 #include "../utils/print_utils.hpp"
+#include "../utils/time_utils.hpp"
 #include "../data_structures/graph.hpp"
 
 void PathfindingNode::setup(const int32_t movement_cost, const int32_t total_cost, const int32_t origin_id)
@@ -30,6 +31,19 @@ PathfindingNode* Pathfinder::get_node(const int32_t id)
     return &this->node_poll.at(id);
 }
 
+void Pathfinder::reset_node_state()
+{
+    TimeMeasurer reset_timer{"PF state"};
+    while(!this->open_list.empty())
+        this->open_list.pop();
+    
+    for(auto& node : this->node_poll)
+    {
+        node.visited = false;
+        node.initialized = false;
+    }
+    //reset_timer.print_time();
+}
 
 int32_t Pathfinder::manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target)
 {
@@ -55,7 +69,6 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
     PathfindingNode* origin_node = &node_poll.at(origin_id);
 
     this->open_list.push(origin_node);
-
     while(this->open_list.size() > 0)
     {
         auto current_node = this->open_list.top();
@@ -68,9 +81,8 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
             {
                 path.push_back(current_node->index);
                 current_node = this->get_node(current_node->origin_id);
-                std::cout << current_node;
             }
-            return path;
+            goto cleanup;
         }
 
         const auto& connections = this->graph->get_node_connections(current_node->id);
@@ -101,7 +113,8 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
         }
     }
 
-
+    cleanup:
+    this->reset_node_state();
     return path;
 };
 

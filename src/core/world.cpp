@@ -20,15 +20,12 @@ Map::Map(glm::u32vec2 size, std::function<Tile(glm::u32vec2)> generator): size_x
         for (size_t y = 0; y < this->size_y; ++y)
             this->get(x, y) = generator({x, y});
     
-    this->get(1, 1).state = Tile::State::Occupied;
-
-    for (size_t y = 1; y < 9; ++y)
-        this->get(3, y).state = Tile::State::Wall;
 
     this->graph_representation = std::make_unique<Graph>(size_x * size_y);
     this->update_graph_representation();
 
     this->pathfinder = std::make_unique<Pathfinder>(graph_representation.get(),size);
+    this->test_path = this->pathfinder->get_path(glm::i32vec2{0,5}, glm::i32vec2{1,3});
 
 }
 

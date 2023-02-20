@@ -23,7 +23,6 @@ struct Tile {
         Emtpy,
         Occupied,
         Wall,
-        Path,
     };
 
     State state;
@@ -45,10 +44,16 @@ class Map {
 
     private:
         void update_tile_connections(const glm::i32vec2 index);
-        void update_graph_representation();
 
     public:
         std::unique_ptr<Pathfinder> pathfinder;
+        
+        //Temporary
+        std::vector<glm::i32vec2> test_path;
+        glm::i32vec2 test_entity_index{1,1};
+        glm::i32vec2 test_target;
+        //Temporary
+
 
     public:
 
@@ -56,6 +61,7 @@ class Map {
 
         glm::u32vec2 size() const;
         bool is_inside_boundaries(const glm::i32vec2 index) const;
+        void update_graph_representation();
 
         Tile& get(size_t x, size_t y);
         Tile const& get(size_t x, size_t y) const;

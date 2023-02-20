@@ -17,8 +17,20 @@ class GameScene : public Scene
 {
 private:
 
+    enum InteractionMode
+    {
+        COMMAND,
+        CONSTRUCTION,
+    };
+
+    int32_t current_interaction_mode = COMMAND;
+    bool left_mouse_pressed = false;
+    bool right_mouse_pressed = false;
+    glm::i32vec2 hovered_index;
+
     std::unique_ptr<World> world = nullptr;
     Renderer renderer;
+
 
 public:
 

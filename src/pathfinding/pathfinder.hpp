@@ -49,6 +49,7 @@ private:
 
 private:
     PathfindingNode* get_node(const int32_t id);
+    void reset_node_state();
     
 
 public:

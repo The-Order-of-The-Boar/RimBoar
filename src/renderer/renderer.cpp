@@ -3,6 +3,10 @@
 
 // local
 #include "../logging/log.hpp"
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/vector_int2_sized.hpp>
+#include <glm/ext/vector_uint2_sized.hpp>
+#include "../utils/print_utils.hpp"
 
 
 
@@ -43,18 +47,10 @@ void Renderer::render(SDL_Renderer* sdl_renderer, World const& world) const
 
             glm::u8vec3 color;
 
-            switch (world.map.get(x,y).state) 
-            {
-                case Tile::State::Wall:
-                    color = wall_color;
-                    break;
-                case Tile::State::Path:
-                    color = path_color;
-                    break;
-                default:
-                    color = floor_color;
-                    break;
-            }
+            if (world.map.get(x, y).state == Tile::State::Wall)
+                color = wall_color;
+            else
+                color = floor_color;
             draw_rect(sdl_renderer, tile_rect, color);
         }
     }
@@ -114,4 +110,27 @@ void Renderer::render(SDL_Renderer* sdl_renderer, World const& world) const
             draw_rect(sdl_renderer, entity_rect, entity_color);
         }
     }
+
+    // Paths
+    const size_t path_size = world.map.test_path.size();
+    if(path_size > 0)
+    {
+        draw_line(sdl_renderer, 
+            static_cast<glm::u32vec2>(world.map.test_entity_index)   * TILE_SIZE + TILE_SIZE/2,
+            static_cast<glm::u32vec2>(world.map.test_path[path_size-1]) * TILE_SIZE + TILE_SIZE/2,
+            path_color);
+        for(size_t i = 0; path_size > 0 && i < path_size - 1; i++)
+        {
+            draw_line(sdl_renderer, 
+                static_cast<glm::u32vec2>(world.map.test_path[i])   * TILE_SIZE + TILE_SIZE/2,
+                static_cast<glm::u32vec2>(world.map.test_path[i+1]) * TILE_SIZE + TILE_SIZE/2,
+                path_color);
+        }
+    }
+}
+
+glm::i32vec2 Renderer::screen_to_index(glm::i32vec2 screen_pos) const
+{
+    screen_pos += this->offset;
+    return glm::i32vec2{screen_pos.x/TILE_SIZE, screen_pos.y/TILE_SIZE};
 }

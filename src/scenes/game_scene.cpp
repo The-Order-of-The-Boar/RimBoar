@@ -28,7 +28,7 @@ Map create_map(glm::u32vec2 size) {
 
 GameScene::GameScene() {
 
-    this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
+    this->world = std::unique_ptr<World>{new World{.map = create_map({20, 10})}};
     this->world->map.get(this->world->map.test_entity_index).state = Tile::State::Occupied;
 }
 

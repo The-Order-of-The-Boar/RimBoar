@@ -7,7 +7,7 @@
 #include "../logging/assert.hpp"
 #include "../data_structures/graph.hpp"
 #include "../pathfinding/pathfinder.hpp"
-#include <glm/ext/vector_int2_sized.hpp>
+#include "../utils/print_utils.hpp"
 
 
 
@@ -20,7 +20,6 @@ Map::Map(glm::u32vec2 size, std::function<Tile(glm::u32vec2)> generator): size_x
         for (size_t y = 0; y < this->size_y; ++y)
             this->get(x, y) = generator({x, y});
     
-
     this->graph_representation = std::make_unique<Graph>(size_x * size_y);
     this->update_graph_representation();
 
@@ -33,7 +32,7 @@ void Map::update_tile_connections(const glm::i32vec2 index)
 {
     auto index_to_id = [this](const glm::i32vec2 index) -> int32_t
     {
-        return index.x*this->size_x + index.y;
+        return index.x*this->size_y + index.y;
     };
 
     const int32_t tile_id = index_to_id(index);

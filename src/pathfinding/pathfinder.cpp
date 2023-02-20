@@ -47,7 +47,7 @@ void Pathfinder::reset_node_state()
 
 int32_t Pathfinder::manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target)
 {
-    return (abs(pos.x - target.x) + abs(pos.y - target.y)) * 10;
+    return (abs(pos.x - target.x) + abs(pos.y - target.y)) * LINEAR_MOVEMENT_COST;
 }
 
 Pathfinder::Pathfinder(const Graph* const graph, const glm::i32vec2 world_size)
@@ -57,7 +57,7 @@ Pathfinder::Pathfinder(const Graph* const graph, const glm::i32vec2 world_size)
     for(int32_t i = 0; i < this->node_poll.size(); i++)
     {
         this->node_poll.at(i).id = i;
-        this->node_poll.at(i).index = glm::i32vec2(i/world_size.x, i%world_size.x);
+        this->node_poll.at(i).index = glm::i32vec2(i/world_size.y, i%world_size.y);
     }
 }
 
@@ -65,7 +65,7 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
 {
     std::vector<glm::i32vec2> path{};
 
-    const int32_t origin_id = origin.x * this->world_size.x + origin.y;
+    const int32_t origin_id = origin.x * this->world_size.y + origin.y;
     PathfindingNode* origin_node = &node_poll.at(origin_id);
 
     this->open_list.push(origin_node);
@@ -74,7 +74,6 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
         auto current_node = this->open_list.top();
         this->open_list.pop();
         current_node->visited = true;
-
         if(current_node->index == target)
         {
             while(current_node->index != origin)

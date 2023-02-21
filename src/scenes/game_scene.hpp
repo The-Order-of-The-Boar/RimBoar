@@ -4,9 +4,9 @@
 #include <vector>
 
 // local
-#include "./scene.hpp"
 #include "../core/world.hpp"
 #include "../renderer/renderer.hpp"
+#include "./scene.hpp"
 
 // extern
 #include <glm/vec3.hpp>

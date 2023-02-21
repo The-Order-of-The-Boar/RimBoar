@@ -25,7 +25,7 @@ class Scene
 {
 public:
 
-    virtual ~Scene() {};
+    virtual ~Scene(){};
 
     SceneFinalizationStatus scene_status{};
 

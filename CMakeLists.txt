@@ -23,6 +23,7 @@ add_library(rimboar_int
 
     src/renderer/renderer.cpp
     src/core/world.cpp
+    src/core/entity_manager.cpp
     
     src/application/game_application.cpp
 

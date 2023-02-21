@@ -28,7 +28,7 @@
 
 Map create_map(glm::u32vec2 size) {
 
-    auto output = Map{size, [&](glm::u32vec2){ return Tile{.state = Tile::State::Emtpy }; }};
+    auto output = Map{size, [&](glm::u32vec2){ return Tile{}; }};
     return output;
 }
 
@@ -36,10 +36,10 @@ GameScene::GameScene() {
 
     this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
     
-    this->world->map.get(1, 1).state = Tile::State::Occupied;
+    this->world->push_unit({}, {1, 1});
 
     for (size_t y = 1; y < 9; ++y)
-        this->world->map.get(3, y).state = Tile::State::Wall;
+        this->world->push_wall({}, {3, y});
 }
 
 GameScene::~GameScene() {}

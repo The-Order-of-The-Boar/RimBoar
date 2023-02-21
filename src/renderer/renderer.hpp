@@ -27,9 +27,16 @@ class Renderer
 private:
 
     glm::i32vec2 offset = {0, 0};
+    mutable SDL_Renderer* sdl_renderer = nullptr;
 
 public:
 
     void move(glm::i32vec2 offset);
+
     void render(SDL_Renderer* sdl_renderer, World const& world) const;
+    void render_rect(SDL_Rect rect, glm::u8vec3 color) const;
+    
+    void render_floor(size_t x, size_t y) const;
+    void render_wall(size_t x, size_t y) const;
+    void render_unit(size_t x, size_t y) const;
 };

@@ -1,7 +1,7 @@
-//header
+// header
 #include "./pathfinder.hpp"
 
-//builtin
+// builtin
 #include <cstddef>
 #include <cstdint>
 #include <glm/ext/vector_int2_sized.hpp>
@@ -10,13 +10,14 @@
 #include <queue>
 #include <vector>
 
-//local
+// local
+#include "../data_structures/graph.hpp"
 #include "../logging/assert.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"
-#include "../data_structures/graph.hpp"
 
-void PathfindingNode::setup(const int32_t movement_cost, const int32_t total_cost, const int32_t origin_id)
+void PathfindingNode::setup(const int32_t movement_cost, const int32_t total_cost,
+                            const int32_t origin_id)
 {
     this->movement_cost = movement_cost;
     this->total_cost = total_cost;
@@ -34,15 +35,15 @@ PathfindingNode* Pathfinder::get_node(const int32_t id)
 void Pathfinder::reset_node_state()
 {
     TimeMeasurer reset_timer{"PF state"};
-    while(!this->open_list.empty())
+    while (!this->open_list.empty())
         this->open_list.pop();
-    
-    for(auto& node : this->node_poll)
+
+    for (auto& node: this->node_poll)
     {
         node.visited = false;
         node.initialized = false;
     }
-    //reset_timer.print_time();
+    // reset_timer.print_time();
 }
 
 int32_t Pathfinder::manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target)
@@ -50,14 +51,14 @@ int32_t Pathfinder::manhattan_distance(const glm::i32vec2 pos, const glm::i32vec
     return (abs(pos.x - target.x) + abs(pos.y - target.y)) * LINEAR_MOVEMENT_COST;
 }
 
-Pathfinder::Pathfinder(const Graph* const graph, const glm::i32vec2 world_size)
-    :graph{graph}, world_size{world_size}
+Pathfinder::Pathfinder(Graph const* const graph, const glm::i32vec2 world_size):
+    graph{graph}, world_size{world_size}
 {
     this->node_poll.resize(world_size.x * world_size.y);
-    for(int32_t i = 0; i < this->node_poll.size(); i++)
+    for (int32_t i = 0; i < this->node_poll.size(); i++)
     {
         this->node_poll.at(i).id = i;
-        this->node_poll.at(i).index = glm::i32vec2(i/world_size.y, i%world_size.y);
+        this->node_poll.at(i).index = glm::i32vec2(i / world_size.y, i % world_size.y);
     }
 }
 
@@ -69,14 +70,14 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
     PathfindingNode* origin_node = &node_poll.at(origin_id);
 
     this->open_list.push(origin_node);
-    while(this->open_list.size() > 0)
+    while (this->open_list.size() > 0)
     {
         auto current_node = this->open_list.top();
         this->open_list.pop();
         current_node->visited = true;
-        if(current_node->index == target)
+        if (current_node->index == target)
         {
-            while(current_node->index != origin)
+            while (current_node->index != origin)
             {
                 path.push_back(current_node->index);
                 current_node = this->get_node(current_node->origin_id);
@@ -84,27 +85,28 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
             goto cleanup;
         }
 
-        const auto& connections = this->graph->get_node_connections(current_node->id);
-        for(size_t i = 0; i < connections.size(); i++)
+        auto const& connections = this->graph->get_node_connections(current_node->id);
+        for (size_t i = 0; i < connections.size(); i++)
         {
-            const Edge* path = &connections.at(i);
+            Edge const* path = &connections.at(i);
             // Test using value first
             auto node = &this->node_poll.at(path->target_node_id);
             const int32_t new_movement_cost = current_node->movement_cost + path->cost;
-            const int32_t new_total_cost = new_movement_cost + Pathfinder::manhattan_distance(node->index, target);
-            
-            if(!node->initialized)
+            const int32_t new_total_cost =
+                new_movement_cost + Pathfinder::manhattan_distance(node->index, target);
+
+            if (!node->initialized)
             {
                 node->setup(new_movement_cost, new_total_cost, path->origin_node_id);
                 this->open_list.push(node);
             }
-            //On open list
-            else if(!node->visited && (new_total_cost < node->total_cost))
+            // On open list
+            else if (!node->visited && (new_total_cost < node->total_cost))
             {
                 node->setup(new_movement_cost, new_total_cost, path->origin_node_id);
             }
-            //On closed list
-            else if(new_total_cost < node->total_cost)
+            // On closed list
+            else if (new_total_cost < node->total_cost)
             {
                 node->setup(new_movement_cost, new_total_cost, path->origin_node_id);
                 this->open_list.push(node);
@@ -112,9 +114,7 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::i32vec2 origin, const 
         }
     }
 
-    cleanup:
+cleanup:
     this->reset_node_state();
     return path;
 };
-
-

@@ -1,15 +1,15 @@
 #pragma once
 
-//builtin
+// builtin
 #include <cstddef>
 #include <cstdint>
-#include <queue>
 #include <iostream>
+#include <queue>
 
-//third party
-#include <glm/vec2.hpp>
+// third party
 #include <glm/ext/scalar_int_sized.hpp>
 #include <glm/ext/vector_int2_sized.hpp>
+#include <glm/vec2.hpp>
 #include <vector>
 
 class Graph;
@@ -33,34 +33,32 @@ struct PathfindingNode
 class Pathfinder
 {
 private:
+
     static const int32_t LINEAR_MOVEMENT_COST = 10;
-    const Graph* const graph;
+    Graph const* const graph;
     const glm::i32vec2 world_size;
 
-    constexpr static auto pathfinding_node_compare = [](const PathfindingNode* left,const PathfindingNode* right)
-    {
-        return left->total_cost > right->total_cost;
-    };
+    constexpr static auto pathfinding_node_compare =
+        [](PathfindingNode const* left, PathfindingNode const* right)
+    { return left->total_cost > right->total_cost; };
 
 
     std::vector<PathfindingNode> node_poll;
-    std::priority_queue
-        <PathfindingNode*, std::vector<PathfindingNode*>, decltype(pathfinding_node_compare)> 
+    std::priority_queue<PathfindingNode*, std::vector<PathfindingNode*>,
+                        decltype(pathfinding_node_compare)>
         open_list{pathfinding_node_compare};
 
 private:
+
     PathfindingNode* get_node(const int32_t id);
     void reset_node_state();
-    
+
 
 public:
-    Pathfinder(const Graph* const graph, const glm::i32vec2 world_size);
+
+    Pathfinder(Graph const* const graph, const glm::i32vec2 world_size);
     ~Pathfinder() = default;
 
     static int32_t manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target);
     std::vector<glm::i32vec2> get_path(const glm::i32vec2 origin, glm::i32vec2 target);
-
 };
-
-
-

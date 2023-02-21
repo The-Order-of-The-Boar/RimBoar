@@ -28,6 +28,8 @@ add_library(rimboar_int
 
     src/utils/time_utils.cpp
     src/utils/system.cpp
+
+    src/pathfinding/pathfinder.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 
@@ -38,6 +40,7 @@ add_executable(test_rimboar
 
     src/tests/test.cpp
     src/tests/slotmap.cpp
+    src/tests/pathfinder.cpp
 )
 target_link_libraries(test_rimboar PRIVATE rimboar_int)
 

@@ -3,6 +3,10 @@
 
 // local
 #include "../logging/log.hpp"
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/vector_int2_sized.hpp>
+#include <glm/ext/vector_uint2_sized.hpp>
+#include "../utils/print_utils.hpp"
 
 
 
@@ -16,6 +20,12 @@ void draw_rect(SDL_Renderer* renderer, SDL_Rect rect, glm::u8vec3 color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
     SDL_RenderDrawRect(renderer, &rect);
     SDL_RenderFillRect(renderer, &rect);
+}
+
+void draw_line(SDL_Renderer* renderer, const glm::i32vec2 origin, const glm::i32vec2 target, const glm::u8vec3 color)
+{
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
+    SDL_RenderDrawLine(renderer, origin.x, origin.y, target.x, target.y);
 }
 
 void Renderer::render(SDL_Renderer* sdl_renderer, World const& world) const
@@ -100,4 +110,27 @@ void Renderer::render(SDL_Renderer* sdl_renderer, World const& world) const
             draw_rect(sdl_renderer, entity_rect, entity_color);
         }
     }
+
+    // Paths
+    const size_t path_size = world.map.test_path.size();
+    if(path_size > 0)
+    {
+        draw_line(sdl_renderer, 
+            static_cast<glm::u32vec2>(world.map.test_entity_index)   * TILE_SIZE + TILE_SIZE/2,
+            static_cast<glm::u32vec2>(world.map.test_path[path_size-1]) * TILE_SIZE + TILE_SIZE/2,
+            path_color);
+        for(size_t i = 0; path_size > 0 && i < path_size - 1; i++)
+        {
+            draw_line(sdl_renderer, 
+                static_cast<glm::u32vec2>(world.map.test_path[i])   * TILE_SIZE + TILE_SIZE/2,
+                static_cast<glm::u32vec2>(world.map.test_path[i+1]) * TILE_SIZE + TILE_SIZE/2,
+                path_color);
+        }
+    }
+}
+
+glm::i32vec2 Renderer::screen_to_index(glm::i32vec2 screen_pos) const
+{
+    screen_pos += this->offset;
+    return glm::i32vec2{screen_pos.x/TILE_SIZE, screen_pos.y/TILE_SIZE};
 }

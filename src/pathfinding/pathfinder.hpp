@@ -34,7 +34,7 @@ class Pathfinder
 {
 private:
 
-    static const int32_t LINEAR_MOVEMENT_COST = 10;
+    static const int32_t LINEAR_MOVEMENT_COST = 11 - 1;
     Graph const* const graph;
     const glm::i32vec2 world_size;
 

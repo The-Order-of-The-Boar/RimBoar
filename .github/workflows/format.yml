@@ -19,6 +19,8 @@ jobs:
       run: git status
     - name: check modifications
       run: echo "formatted=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+    - name: test formatted
+        run: echo steps.git-check.outputs
     - name: commit
       if: steps.git-check.outputs.formatted == 'true'
       run: |

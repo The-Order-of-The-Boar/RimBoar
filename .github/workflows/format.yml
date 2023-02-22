@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:  "main"
+  pull_request:
+    branches: "main"
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: format
+      run: ./format.sh
+    - name: check modifications
+      run: echo "formatted=$(if git diff-index --quiet HEAD --;
+        then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+    - name: commit
+      if: steps.git-check.outputs.formatted == 'true'
+      run: |
+        git config user.name "Roboar Formatter"
+        git config user.email "boar@boar.com"
+        git add src
+        git commit -m "Auto: Format script"
+        git push origin main
+        
+        
+      
+

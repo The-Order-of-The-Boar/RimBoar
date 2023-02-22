@@ -30,8 +30,7 @@ struct PathfindingNode
 };
 
 
-class Pathfinder
-{
+class Pathfinder{
 private:
 
     static const int32_t LINEAR_MOVEMENT_COST = 10;

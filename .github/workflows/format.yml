@@ -17,10 +17,10 @@ jobs:
       run: ./format.sh
     - name: git status
       run: git status
-    - name: Check for modified files
+    - name: check modifications
       id: git-check
       run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
-    - name: Push changes
+    - name: commit
       if: steps.git-check.outputs.modified == 'true'
       run: |
         git config user.name "Roboar Formatter"

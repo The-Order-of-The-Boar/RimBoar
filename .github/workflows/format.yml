@@ -20,7 +20,6 @@ jobs:
     - name: check modifications
       run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
     - name: commit
-      if: steps.git-check.outputs.modified == 'true'
       run: |
         git config user.name "Roboar Formatter"
         git config user.email "boar@boar.com"

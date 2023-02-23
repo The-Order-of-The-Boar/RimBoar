@@ -92,6 +92,7 @@ foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
         -fdiagnostics-color=always
 
         $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
+        $<$<CONFIG:PROFILE>:-Wl,-no-as-needed -lm -lprofiler>
 
         $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
         $<$<CONFIG:RELEASE,PROFILE>:-O3>

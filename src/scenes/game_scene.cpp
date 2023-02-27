@@ -112,7 +112,7 @@ void GameScene::update_hud()
     bool panel_visible = true;
     ImGui::Begin("Game", &panel_visible);
     ImGui::Text("Be welcome to our game world!");
-    ImGui::ShowDemoWindow();
+    // ImGui::ShowDemoWindow();
 
     auto const io = ImGui::GetIO();
     this->left_mouse_pressed = io.MouseDown[0];

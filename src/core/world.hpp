@@ -34,13 +34,12 @@ class Map
 {
 private:
 
-    const int32_t LINEAR_MOVEMENT_COST = 10;
-    const int32_t DIAGONAL_MOVEMENT_COST = 10;
+    static const int32_t LINEAR_MOVEMENT_COST = 10;
+    static const int32_t DIAGONAL_MOVEMENT_COST = 10;
 
     std::vector<std::vector<Tile>> data;
     size_t size_x;
     size_t size_y;
-
 
 private:
 
@@ -55,8 +54,6 @@ public:
     std::vector<glm::i32vec2> test_path;
     glm::i32vec2 test_entity_index{1, 1};
     glm::i32vec2 test_target;
-    // Temporary
-
 
 public:
 

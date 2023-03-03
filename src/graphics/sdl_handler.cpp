@@ -29,7 +29,7 @@ SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
                                     window_size.x, window_size.y, WINDOW_FLAGS);
     rb_runtime_assert(this->window != NULL, SDL_GetError());
 
-    constexpr uint32_t RENDERER_FLAGS = SDL_RENDERER_ACCELERATED;
+    constexpr uint32_t RENDERER_FLAGS = 0;
     this->renderer = SDL_CreateRenderer(window, -1, RENDERER_FLAGS);
     rb_runtime_assert(this->renderer != NULL, SDL_GetError());
 

@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: init
-      run: ./init.sh
+      run: ./scripts/init.sh
     - name: build
-      run: ./build.sh Debug main
+      run: ./scripts/build.sh Debug main
 
   test:
     runs-on: ubuntu-latest
@@ -24,9 +24,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: init
-      run: ./init.sh
+      run: ./scripts/init.sh
     - name: test
-      run: ./test.sh
+      run: ./scripts/test.sh
     
   benchmark:
     runs-on: ubuntu-latest
@@ -34,9 +34,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: init
-      run: ./init.sh
+      run: ./scripts/init.sh
     - name: test
-      run: ./benchmark.sh
+      run: ./scripts/benchmark.sh
       
   codeQL-analysis:
     runs-on: ubuntu-latest
@@ -52,9 +52,9 @@ jobs:
         languages: 'cpp'
         
     - name: init
-      run: ./init.sh
+      run: ./scripts/init.sh
     - name: build
-      run: ./build.sh Debug main
+      run: ./scripts/build.sh Debug main
         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

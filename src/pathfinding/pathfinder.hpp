@@ -33,6 +33,7 @@ struct PathfindingNode
 class Pathfinder
 {
 private:
+
     Graph const* const graph;
     const glm::i32vec2 world_size;
 

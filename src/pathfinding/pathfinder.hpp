@@ -33,8 +33,6 @@ struct PathfindingNode
 class Pathfinder
 {
 private:
-
-    static const int32_t LINEAR_MOVEMENT_COST = 10;
     Graph const* const graph;
     const glm::i32vec2 world_size;
 

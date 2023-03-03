@@ -34,7 +34,7 @@ class Map
 private:
 
     static const int32_t LINEAR_MOVEMENT_COST = 10;
-    static const int32_t DIAGONAL_MOVEMENT_COST = 10;
+    static const int32_t DIAGONAL_MOVEMENT_COST = 14;
 
     std::vector<std::vector<Tile>> data;
     size_t size_x;

@@ -48,6 +48,7 @@ void Pathfinder::reset_node_state()
 
 int32_t Pathfinder::manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target)
 {
+    #define LINEAR_MOVEMENT_COST 10;
     return (abs(pos.x - target.x) + abs(pos.y - target.y)) * LINEAR_MOVEMENT_COST;
 }
 

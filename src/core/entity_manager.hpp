@@ -5,30 +5,30 @@
 
 
 
-class Unit {
-
+class Unit
+{
 };
 
-struct UnitID {
-
+struct UnitID
+{
     SlotMap<Unit>::Key key;
 };
 
 
 
-class Wall {
-
+class Wall
+{
 };
 
-struct WallID {
-
+struct WallID
+{
     SlotMap<Wall>::Key key;
 };
 
 
 
-class EntityManager {
-
+class EntityManager
+{
 private:
 
     SlotMap<Unit> units;

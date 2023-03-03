@@ -145,8 +145,7 @@ void Renderer::render_rect(SDL_Rect rect, glm::u8vec3 color) const
     SDL_RenderFillRect(this->sdl_renderer, &rect);
 }
 
-void Renderer::render_line(glm::i32vec2 origin, glm::i32vec2 target,
-                           const glm::u8vec3 color) const
+void Renderer::render_line(glm::i32vec2 origin, glm::i32vec2 target, const glm::u8vec3 color) const
 {
     origin += this->offset;
     target += this->offset;

@@ -21,14 +21,14 @@
 
 Map create_map(glm::u32vec2 size)
 {
-    auto output = Map{size, [&](glm::u32vec2) { return Tile{.state = Tile::State::Emtpy}; }};
+    auto output = Map{size, [&](glm::u32vec2) { return Tile{}; }};
     return output;
 }
 
 std::unique_ptr<World> create_world(const glm::i32vec2 size)
 {
     return std::unique_ptr<World>{
-        new World{Map{size, [&](glm::u32vec2) { return Tile{.state = Tile::State::Emtpy}; }}}};
+        new World{.map = Map{size, [&](glm::u32vec2) { return Tile{}; }}}};
 }
 
 TEST_CASE("Pathfinding Benchmark", "[!benchmark]")
@@ -65,7 +65,7 @@ TEST_CASE("Pathfinding Benchmark", "[!benchmark]")
     {
         const glm::i32vec2 origin{0, 0};
         const glm::i32vec2 target = size / 2;
-        world->map.get(target).state = Tile::State::Wall;
+        world->push_wall(Wall{}, target);
         world->map.update_graph_representation();
         auto const path = pathfinder.get_path(origin, target);
         REQUIRE(path.size() == 0);

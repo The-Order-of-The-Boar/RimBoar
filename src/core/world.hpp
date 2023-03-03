@@ -20,8 +20,8 @@
 
 
 
-struct Tile {
-
+struct Tile
+{
     std::optional<WallID> wall = std::nullopt;
     std::optional<UnitID> unit = std::nullopt;
 

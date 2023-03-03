@@ -21,26 +21,16 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-Map create_map(glm::u32vec2 size) {
-
-    auto output = Map{size, [&](glm::u32vec2){ return Tile{}; }};
+Map create_map(glm::u32vec2 size)
+{
+    auto output = Map{size, [&](glm::u32vec2) { return Tile{}; }};
     return output;
 }
 
-GameScene::GameScene() {
-
+GameScene::GameScene()
+{
     this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
-    
+
     this->world->push_unit({}, {1, 1});
 
     for (size_t y = 1; y < 9; ++y)

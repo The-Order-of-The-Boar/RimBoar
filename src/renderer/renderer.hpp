@@ -38,10 +38,10 @@ public:
     void render(SDL_Renderer* sdl_renderer, World const& world) const;
 
     glm::i32vec2 screen_to_index(glm::i32vec2 screen_pos) const;
-    
+
     void render_rect(SDL_Rect rect, glm::u8vec3 color) const;
     void render_line(glm::i32vec2 origin, glm::i32vec2 target, glm::u8vec3 color) const;
-    
+
     void render_floor(size_t x, size_t y) const;
     void render_wall(size_t x, size_t y) const;
     void render_unit(size_t x, size_t y) const;

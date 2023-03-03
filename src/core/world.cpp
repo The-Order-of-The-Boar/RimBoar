@@ -134,8 +134,8 @@ bool Tile::is_occupied() const
 
 
 
-void World::push_unit(Unit unit, glm::u32vec2 position) {
-
+void World::push_unit(Unit unit, glm::u32vec2 position)
+{
     auto& tile = this->map.get(position);
 
     rb_assert(tile.is_occupied() == false);
@@ -149,8 +149,8 @@ void World::push_unit(Unit unit, glm::u32vec2 position) {
     this->map.update_graph_representation();
 }
 
-void World::push_wall(Wall wall, glm::u32vec2 position) {
-
+void World::push_wall(Wall wall, glm::u32vec2 position)
+{
     auto& tile = this->map.get(position);
 
     rb_assert(tile.is_occupied() == false);
@@ -167,7 +167,7 @@ void World::push_wall(Wall wall, glm::u32vec2 position) {
 void World::remove_unit(glm::u32vec2 position)
 {
     auto& tile = this->map.get(position);
-    
+
     rb_assert(tile.unit.has_value());
     tile.unit = std::nullopt;
 
@@ -180,7 +180,6 @@ void World::remove_wall(glm::u32vec2 position)
 
     rb_assert(tile.wall.has_value());
     tile.wall = std::nullopt;
-    
+
     this->map.update_graph_representation();
 }
-

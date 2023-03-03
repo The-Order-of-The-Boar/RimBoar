@@ -5,7 +5,7 @@
 
 // local
 #include "../data_structures/graph.hpp"
-#include "../logging/assert.hpp"
+#include "../utils/logging/assert.hpp"
 #include "../pathfinding/pathfinder.hpp"
 #include "../utils/print_utils.hpp"
 

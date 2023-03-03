@@ -8,7 +8,7 @@
 
 // local
 #include <application/game_application.hpp>
-#include <logging/log.hpp>
+#include <utils/logging/log.hpp>
 #include <slotmap/slotmap.hpp>
 #include <utils/system.hpp>
 

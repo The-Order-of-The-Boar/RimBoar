@@ -12,7 +12,7 @@
 #include <imgui_impl_sdl.h>
 
 // local
-#include "../logging/log.hpp"
+#include "../utils/logging/log.hpp"
 #include "../scenes/game_scene.hpp"
 #include "../scenes/menu_scene.hpp"
 #include "../utils/time_utils.hpp"

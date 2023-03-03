@@ -2,7 +2,7 @@
 #include "renderer.hpp"
 
 // local
-#include "../logging/log.hpp"
+#include "../utils/logging/log.hpp"
 #include "../utils/print_utils.hpp"
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_int2_sized.hpp>

@@ -12,8 +12,8 @@
 
 // local
 #include "../core/world.hpp"
-#include "../logging/assert.hpp"
-#include "../logging/log.hpp"
+#include "../utils/logging/assert.hpp"
+#include "../utils/logging/log.hpp"
 #include "../pathfinding/pathfinder.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"

@@ -5,7 +5,7 @@
 #include <iostream>
 
 // local
-#include "../logging/log.hpp"
+#include "../utils/logging/log.hpp"
 
 struct TimeUnit
 {

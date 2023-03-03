@@ -13,8 +13,8 @@
 
 // local
 #include "../application/config.hpp"
-#include "../logging/assert.hpp"
-#include "../logging/log.hpp"
+#include "../utils/logging/assert.hpp"
+#include "../utils/logging/log.hpp"
 #include "imgui_handler.hpp"
 
 

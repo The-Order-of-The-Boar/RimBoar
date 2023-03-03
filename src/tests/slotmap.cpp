@@ -6,7 +6,7 @@
 #include <cstdint>
 
 // local
-#include "logging/assert.hpp"
+#include "utils/logging/assert.hpp"
 #include "slotmap/slotmap.hpp"
 
 // extern

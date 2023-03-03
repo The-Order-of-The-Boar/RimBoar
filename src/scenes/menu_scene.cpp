@@ -6,7 +6,7 @@
 #include <imgui.h>
 
 // local
-#include "../logging/log.hpp"
+#include "../utils/logging/log.hpp"
 #include "scene.hpp"
 
 #include <chrono>

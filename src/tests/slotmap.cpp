@@ -6,8 +6,8 @@
 #include <cstdint>
 
 // local
-#include "utils/logging/assert.hpp"
 #include "slotmap/slotmap.hpp"
+#include "utils/logging/assert.hpp"
 
 // extern
 #include <catch2/catch_test_macros.hpp>

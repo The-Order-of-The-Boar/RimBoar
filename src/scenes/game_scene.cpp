@@ -12,9 +12,9 @@
 
 // local
 #include "../core/world.hpp"
+#include "../pathfinding/pathfinder.hpp"
 #include "../utils/logging/assert.hpp"
 #include "../utils/logging/log.hpp"
-#include "../pathfinding/pathfinder.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"
 #include "scene.hpp"

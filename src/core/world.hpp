@@ -7,6 +7,9 @@
 #include <optional>
 #include <vector>
 
+// local
+#include "entity_manager.hpp"
+
 // extern
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -16,18 +19,14 @@
 #include "../pathfinding/pathfinder.hpp"
 
 
-struct Tile
-{
-    enum class State
-    {
-        Emtpy,
-        Occupied,
-        Wall,
-    };
 
-    State state;
+struct Tile {
+
+    std::optional<WallID> wall = std::nullopt;
+    std::optional<UnitID> unit = std::nullopt;
 
     std::optional<float> walk_speed() const;
+    bool is_occupied() const;
 };
 
 class Map
@@ -77,4 +76,13 @@ public:
 struct World
 {
     Map map;
+    EntityManager entities;
+
+public:
+
+    void push_unit(Unit unit, glm::u32vec2 position);
+    void push_wall(Wall wall, glm::u32vec2 position);
+
+    void remove_unit(glm::u32vec2 position);
+    void remove_wall(glm::u32vec2 position);
 };

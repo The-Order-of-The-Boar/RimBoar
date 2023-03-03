@@ -46,16 +46,15 @@ void Map::update_tile_connections(const glm::i32vec2 index)
 
             Tile const& neighbor = this->get(neighbor_pos);
 
-            const std::optional<float> walk_speed = neighbor.walk_speed();
-            if (!walk_speed.has_value())
+            if (neighbor.is_occupied())
                 continue;
 
             // Diagonals movements can only happen if laterals are empty
             if (abs(dir.x) + abs(dir.y) == 2)
             {
-                if (!this->get(index + glm::i32vec2{dir.x, 0}).walk_speed().has_value())
+                if (this->get(index + glm::i32vec2{dir.x, 0}).is_occupied())
                     continue;
-                if (!this->get(index + glm::i32vec2{0, dir.y}).walk_speed().has_value())
+                if (this->get(index + glm::i32vec2{0, dir.y}).is_occupied())
                     continue;
             }
 
@@ -118,10 +117,70 @@ Tile const& Map::get(size_t x, size_t y) const
     return const_cast<Tile const&>(map.get(x, y));
 }
 
+
+
 std::optional<float> Tile::walk_speed() const
 {
-    if (this->state != State::Emtpy)
+    if (this->is_occupied())
         return std::nullopt;
 
     return {1.0};
 }
+
+bool Tile::is_occupied() const
+{
+    return (this->unit.has_value() || this->wall.has_value());
+}
+
+
+
+void World::push_unit(Unit unit, glm::u32vec2 position) {
+
+    auto& tile = this->map.get(position);
+
+    rb_assert(tile.is_occupied() == false);
+    rb_assert(tile.unit.has_value() == false);
+
+    auto id = this->entities.push_unit(std::move(unit));
+    tile.unit = id;
+
+    rb_assert(tile.is_occupied());
+
+    this->map.update_graph_representation();
+}
+
+void World::push_wall(Wall wall, glm::u32vec2 position) {
+
+    auto& tile = this->map.get(position);
+
+    rb_assert(tile.is_occupied() == false);
+    rb_assert(tile.wall.has_value() == false);
+
+    auto id = this->entities.push_wall(std::move(wall));
+    tile.wall = id;
+
+    rb_assert(tile.is_occupied());
+
+    this->map.update_graph_representation();
+}
+
+void World::remove_unit(glm::u32vec2 position)
+{
+    auto& tile = this->map.get(position);
+    
+    rb_assert(tile.unit.has_value());
+    tile.unit = std::nullopt;
+
+    this->map.update_graph_representation();
+}
+
+void World::remove_wall(glm::u32vec2 position)
+{
+    auto& tile = this->map.get(position);
+
+    rb_assert(tile.wall.has_value());
+    tile.wall = std::nullopt;
+    
+    this->map.update_graph_representation();
+}
+

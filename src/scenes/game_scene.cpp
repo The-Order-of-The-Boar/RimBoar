@@ -20,16 +20,31 @@
 #include "scene.hpp"
 
 
-Map create_map(glm::u32vec2 size)
-{
-    auto output = Map{size, [&](glm::u32vec2) { return Tile{.state = Tile::State::Emtpy}; }};
+
+
+
+
+
+
+
+
+
+
+
+Map create_map(glm::u32vec2 size) {
+
+    auto output = Map{size, [&](glm::u32vec2){ return Tile{}; }};
     return output;
 }
 
-GameScene::GameScene()
-{
-    this->world = std::unique_ptr<World>{new World{.map = create_map({20, 10})}};
-    this->world->map.get(this->world->map.test_entity_index).state = Tile::State::Occupied;
+GameScene::GameScene() {
+
+    this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
+    
+    this->world->push_unit({}, {1, 1});
+
+    for (size_t y = 1; y < 9; ++y)
+        this->world->push_wall({}, {3, y});
 }
 
 GameScene::~GameScene() {}
@@ -42,11 +57,10 @@ void GameScene::update(double const delta)
         TimeMeasurer pathfinding_time{"Found path in"};
         this->world->map.test_path = this->world->map.pathfinder->get_path(
             this->world->map.test_entity_index, this->world->map.test_target);
-        // pathfinding_time.print_time();
+        pathfinding_time.print_time();
     };
-    auto update_tile_state = [this, update_test_path](Tile& tile, const Tile::State new_state)
+    auto update_graph_and_path = [this, update_test_path]()
     {
-        tile.state = new_state;
         this->world->map.update_graph_representation();
         update_test_path();
     };
@@ -57,15 +71,21 @@ void GameScene::update(double const delta)
         if (this->left_mouse_pressed && this->world->map.is_inside_boundaries(this->hovered_index))
         {
             Tile& hovered_tile = this->world->map.get(this->hovered_index.x, this->hovered_index.y);
-            if (hovered_tile.state == Tile::State::Emtpy)
-                update_tile_state(hovered_tile, Tile::State::Wall);
+            if (hovered_tile.is_occupied() == false)
+            {
+                world->push_wall(Wall{}, this->hovered_index);
+                update_graph_and_path();
+            }
         }
         else if (this->right_mouse_pressed &&
                  this->world->map.is_inside_boundaries(this->hovered_index))
         {
             Tile& hovered_tile = this->world->map.get(this->hovered_index.x, this->hovered_index.y);
-            if (hovered_tile.state == Tile::State::Wall)
-                update_tile_state(hovered_tile, Tile::State::Emtpy);
+            if (hovered_tile.wall.has_value())
+            {
+                this->world->remove_wall(this->hovered_index);
+                update_graph_and_path();
+            }
         }
     }
 
@@ -75,20 +95,20 @@ void GameScene::update(double const delta)
         if (this->left_mouse_pressed && this->world->map.is_inside_boundaries(this->hovered_index))
         {
             Tile& hovered_tile = this->world->map.get(this->hovered_index.x, this->hovered_index.y);
-            if (hovered_tile.state == Tile::State::Emtpy)
+            if (hovered_tile.is_occupied() == false)
             {
-                this->world->map.get(this->world->map.test_entity_index).state = Tile::State::Emtpy;
+                this->world->remove_unit(this->world->map.test_entity_index);
+                this->world->push_unit(Unit{}, this->hovered_index);
                 this->world->map.test_entity_index = hovered_index;
-                hovered_tile.state = Tile::State::Occupied;
-                this->world->map.update_graph_representation();
-                update_test_path();
+
+                update_graph_and_path();
             }
         }
         else if (this->right_mouse_pressed &&
                  this->world->map.is_inside_boundaries(this->hovered_index))
         {
             Tile& hovered_tile = this->world->map.get(this->hovered_index.x, this->hovered_index.y);
-            if (hovered_tile.state == Tile::State::Emtpy &&
+            if (hovered_tile.is_occupied() == false &&
                 this->hovered_index != this->world->map.test_target)
             {
                 this->world->map.test_target = this->hovered_index;

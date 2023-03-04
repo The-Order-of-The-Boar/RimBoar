@@ -11,7 +11,7 @@
 #include <vector>
 
 // local
-#include "../data_structures/graph.hpp"
+#include "graph.hpp"
 #include "../utils/logging/assert.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"

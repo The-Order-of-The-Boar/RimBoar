@@ -4,7 +4,7 @@
 // builtin
 
 // local
-#include "../data_structures/graph.hpp"
+#include "../pathfinding/graph.hpp"
 #include "../pathfinding/pathfinder.hpp"
 #include "../utils/logging/assert.hpp"
 #include "../utils/print_utils.hpp"

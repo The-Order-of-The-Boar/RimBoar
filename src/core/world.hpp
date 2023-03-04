@@ -15,7 +15,7 @@
 #include <glm/vec3.hpp>
 
 // local
-#include "../data_structures/graph.hpp"
+#include "../pathfinding/graph.hpp"
 #include "../pathfinding/pathfinder.hpp"
 
 

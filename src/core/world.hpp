@@ -42,7 +42,7 @@ private:
 
 private:
 
-    void update_tile_connections(const glm::i32vec2 index);
+    void update_tile_connections(const glm::u32vec2 index);
 
 public:
 
@@ -59,7 +59,7 @@ public:
     Map(glm::u32vec2 size, std::function<Tile(glm::u32vec2)> generator);
 
     glm::u32vec2 size() const;
-    bool is_inside_boundaries(const glm::i32vec2 index) const;
+    bool is_inside_boundaries(const glm::u32vec2 index) const;
     void update_graph_representation();
 
     Tile& get(size_t x, size_t y);
@@ -76,7 +76,7 @@ public:
 struct World
 {
     Map map;
-    EntityManager entities;
+    EntityManager entities{};
 
 public:
 

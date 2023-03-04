@@ -29,7 +29,6 @@ Map::Map(glm::u32vec2 size, std::function<Tile(glm::u32vec2)> generator):
 
 void Map::update_tile_connections(const glm::u32vec2 index)
 {
-
     const uint32_t tile_id = this->graph_representation->get_id_from_index(index);
     this->graph_representation->reset_node_connections(tile_id);
     for (int32_t x = -1; x < 2; x++)
@@ -43,7 +42,8 @@ void Map::update_tile_connections(const glm::u32vec2 index)
 
             const glm::i64vec2 neighbor_pos = (glm::i64vec2)index + dir;
 
-            if ((neighbor_pos.x < 0 || neighbor_pos.y < 0) || !this->is_inside_boundaries(neighbor_pos))
+            if ((neighbor_pos.x < 0 || neighbor_pos.y < 0) ||
+                !this->is_inside_boundaries(neighbor_pos))
                 continue;
 
             if (this->get(neighbor_pos).is_occupied())
@@ -61,7 +61,8 @@ void Map::update_tile_connections(const glm::u32vec2 index)
 
             const uint32_t movement_cost =
                 (dir.x == 0 || dir.y == 0) ? LINEAR_MOVEMENT_COST : DIAGONAL_MOVEMENT_COST;
-            const uint32_t neighbor_id = this->graph_representation->get_id_from_index(neighbor_pos);
+            const uint32_t neighbor_id =
+                this->graph_representation->get_id_from_index(neighbor_pos);
             this->graph_representation->add_node_connection(tile_id, neighbor_id, movement_cost);
         }
     }

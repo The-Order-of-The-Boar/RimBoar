@@ -26,7 +26,8 @@ private:
 
 public:
 
-    Graph(const glm::u32vec2 world_size): node_count{world_size.x * world_size.y}, column_size(world_size.y)
+    Graph(const glm::u32vec2 world_size):
+        node_count{world_size.x * world_size.y}, column_size(world_size.y)
     {
         this->connections.resize(this->node_count);
     }
@@ -53,8 +54,8 @@ public:
         return this->node_count;
     }
 
-    uint32_t get_id_from_index(glm::u32vec2 const index) const {
-
+    uint32_t get_id_from_index(glm::u32vec2 const index) const
+    {
         return index.x * this->column_size + index.y;
     }
 

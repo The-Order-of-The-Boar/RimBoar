@@ -11,10 +11,10 @@
 #include <vector>
 
 // local
-#include "graph.hpp"
 #include "../utils/logging/assert.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"
+#include "graph.hpp"
 
 void PathfindingNode::setup(const uint32_t movement_cost, const uint32_t total_cost,
                             const uint32_t origin_id)

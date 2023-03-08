@@ -24,12 +24,12 @@ SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
     auto const sdl_init_status = SDL_Init(SDL_INIT_VIDEO);
     rb_runtime_assert(sdl_init_status == 0, SDL_GetError());
 
-    constexpr uint32_t WINDOW_FLAGS = SDL_WINDOW_SHOWN;
+    uint32_t const WINDOW_FLAGS = SDL_WINDOW_SHOWN;
     this->window = SDL_CreateWindow("RimBoar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                     window_size.x, window_size.y, WINDOW_FLAGS);
     rb_runtime_assert(this->window != NULL, SDL_GetError());
 
-    constexpr uint32_t RENDERER_FLAGS = 0;
+    uint32_t const RENDERER_FLAGS = 0;
     this->renderer = SDL_CreateRenderer(window, -1, RENDERER_FLAGS);
     rb_runtime_assert(this->renderer != NULL, SDL_GetError());
 

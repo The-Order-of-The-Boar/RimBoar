@@ -29,6 +29,14 @@ struct PathfindingNode
     void setup(const uint32_t movement_cost, const uint32_t total_cost, const uint32_t origin_id);
 };
 
+template <>
+struct std::less<PathfindingNode*>
+{
+    bool operator()(PathfindingNode* const& a, PathfindingNode* const& b)
+    {
+        return a->total_cost > b->total_cost;
+    }
+};
 
 class Pathfinder
 {
@@ -37,15 +45,8 @@ private:
     Graph const* const graph;
     const glm::u32vec2 world_size;
 
-    constexpr static auto pathfinding_node_compare =
-        [](PathfindingNode const* left, PathfindingNode const* right)
-    { return left->total_cost > right->total_cost; };
-
-
     std::vector<PathfindingNode> node_poll;
-    std::priority_queue<PathfindingNode*, std::vector<PathfindingNode*>,
-                        decltype(pathfinding_node_compare)>
-        open_list{pathfinding_node_compare};
+    std::priority_queue<PathfindingNode*, std::vector<PathfindingNode*>> open_list{};
 
 private:
 

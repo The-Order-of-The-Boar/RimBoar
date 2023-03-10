@@ -12,9 +12,9 @@
 #include <glm/vec3.hpp>
 
 // local
-#include "../slotmap/slotmap.hpp"
 #include "../pathfinding/graph.hpp"
 #include "../pathfinding/pathfinder.hpp"
+#include "../slotmap/slotmap.hpp"
 
 
 
@@ -96,9 +96,9 @@ public:
 struct World
 {
     Map map;
-    
-    struct {
-        
+
+    struct
+    {
         SlotMap<Unit> units;
         SlotMap<Wall> walls;
 

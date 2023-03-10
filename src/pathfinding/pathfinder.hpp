@@ -4,9 +4,9 @@
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <optional>
 #include <queue>
 #include <vector>
-#include <optional>
 
 // third party
 #include <glm/ext/scalar_int_sized.hpp>
@@ -61,5 +61,6 @@ public:
     ~Pathfinder() = default;
 
     static int32_t manhattan_distance(const glm::u32vec2 pos, const glm::u32vec2 target);
-    std::optional<std::vector<glm::i32vec2>> get_path(const glm::u32vec2 origin, glm::u32vec2 target);
+    std::optional<std::vector<glm::i32vec2>> get_path(const glm::u32vec2 origin,
+                                                      glm::u32vec2 target);
 };

@@ -68,6 +68,6 @@ TEST_CASE("Pathfinding Benchmark", "[!benchmark]")
         world->push_wall(Wall{}, target);
         world->map.update_graph_representation();
         auto const path = pathfinder.get_path(origin, target);
-        REQUIRE(path.value().size() == 0);
+        REQUIRE(path.has_value() == false);
     };
 }

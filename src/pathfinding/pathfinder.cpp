@@ -4,17 +4,22 @@
 // builtin
 #include <cstddef>
 #include <cstdint>
-#include <glm/ext/vector_int2_sized.hpp>
 #include <iostream>
 #include <ostream>
 #include <queue>
 #include <vector>
+#include <algorithm>
 
 // local
 #include "../utils/logging/assert.hpp"
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"
 #include "graph.hpp"
+
+// extern
+#include <glm/ext/vector_int2_sized.hpp>
+
+
 
 void PathfindingNode::setup(const uint32_t movement_cost, const uint32_t total_cost,
                             const uint32_t origin_id)
@@ -67,7 +72,7 @@ Pathfinder::Pathfinder(Graph const* const graph, const glm::u32vec2 world_size):
     }
 }
 
-std::vector<glm::i32vec2> Pathfinder::get_path(const glm::u32vec2 origin, const glm::u32vec2 target)
+std::optional<std::vector<glm::i32vec2>> Pathfinder::get_path(const glm::u32vec2 origin, const glm::u32vec2 target)
 {
     std::vector<glm::i32vec2> path{};
 
@@ -87,7 +92,10 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::u32vec2 origin, const 
                 path.push_back(current_node->index);
                 current_node = this->get_node(current_node->origin_id);
             }
-            goto cleanup;
+            std::reverse(path.begin(), path.end());
+
+            this->reset_node_state();
+            return path;
         }
 
         auto const& connections = this->graph->get_node_connections(current_node->id);
@@ -119,7 +127,7 @@ std::vector<glm::i32vec2> Pathfinder::get_path(const glm::u32vec2 origin, const 
         }
     }
 
-cleanup:
+    // path not found
     this->reset_node_state();
-    return path;
+    return std::nullopt;
 };

@@ -122,7 +122,7 @@ void Renderer::render(SDL_Renderer* sdl_renderer, World const& world) const
     if (path_size > 0)
     {
         this->render_line(grid_to_screen((glm::u32vec2)world.map.test_entity_index),
-                          grid_to_screen((glm::u32vec2)world.map.test_path[path_size - 1]),
+                          grid_to_screen((glm::u32vec2)world.map.test_path[0]),
                           path_color);
 
         for (size_t step = 0; step < (path_size - 1); ++step)

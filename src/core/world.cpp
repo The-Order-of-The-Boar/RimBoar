@@ -24,7 +24,7 @@ Map::Map(glm::u32vec2 size, std::function<Tile(glm::u32vec2)> generator):
     this->update_graph_representation();
 
     this->pathfinder = std::make_unique<Pathfinder>(graph_representation.get(), size);
-    this->test_path = this->pathfinder->get_path(glm::i32vec2{0, 5}, glm::u32vec2{1, 3});
+    this->test_path = this->pathfinder->get_path(glm::i32vec2{0, 5}, glm::u32vec2{1, 3}).value();
 }
 
 void Map::update_tile_connections(const glm::u32vec2 index)

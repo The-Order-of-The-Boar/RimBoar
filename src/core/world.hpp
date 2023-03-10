@@ -7,23 +7,43 @@
 #include <optional>
 #include <vector>
 
-// local
-#include "entity_manager.hpp"
-
 // extern
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
 // local
+#include "../slotmap/slotmap.hpp"
 #include "../pathfinding/graph.hpp"
 #include "../pathfinding/pathfinder.hpp"
 
 
 
+class Unit
+{
+};
+
+struct UnitID
+{
+    SlotMap<Unit>::Key key;
+};
+
+
+
+class Wall
+{
+};
+
+struct WallID
+{
+    SlotMap<Wall>::Key key;
+};
+
+
+
 struct Tile
 {
-    std::optional<WallID> wall = std::nullopt;
-    std::optional<UnitID> unit = std::nullopt;
+    std::optional<SlotMap<Wall>::Key> wall = std::nullopt;
+    std::optional<SlotMap<Unit>::Key> unit = std::nullopt;
 
     std::optional<float> walk_speed() const;
     bool is_occupied() const;
@@ -76,7 +96,13 @@ public:
 struct World
 {
     Map map;
-    EntityManager entities{};
+    
+    struct {
+        
+        SlotMap<Unit> units;
+        SlotMap<Wall> walls;
+
+    } entities;
 
 public:
 

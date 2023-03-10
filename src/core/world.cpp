@@ -142,7 +142,7 @@ void World::push_unit(Unit unit, glm::u32vec2 position)
     rb_assert(tile.is_occupied() == false);
     rb_assert(tile.unit.has_value() == false);
 
-    auto id = this->entities.push_unit(std::move(unit));
+    auto id = this->entities.units.push(std::move(unit));
     tile.unit = id;
 
     rb_assert(tile.is_occupied());
@@ -157,7 +157,7 @@ void World::push_wall(Wall wall, glm::u32vec2 position)
     rb_assert(tile.is_occupied() == false);
     rb_assert(tile.wall.has_value() == false);
 
-    auto id = this->entities.push_wall(std::move(wall));
+    auto id = this->entities.walls.push(std::move(wall));
     tile.wall = id;
 
     rb_assert(tile.is_occupied());
@@ -170,6 +170,9 @@ void World::remove_unit(glm::u32vec2 position)
     auto& tile = this->map.get(position);
 
     rb_assert(tile.unit.has_value());
+    rb_assert(this->entities.units.contains(tile.unit.value()));
+
+    this->entities.units.remove(tile.unit.value());
     tile.unit = std::nullopt;
 
     this->map.update_graph_representation();
@@ -180,6 +183,9 @@ void World::remove_wall(glm::u32vec2 position)
     auto& tile = this->map.get(position);
 
     rb_assert(tile.wall.has_value());
+    rb_assert(this->entities.walls.contains(tile.wall.value()));
+
+    this->entities.walls.remove(tile.wall.value());
     tile.wall = std::nullopt;
 
     this->map.update_graph_representation();

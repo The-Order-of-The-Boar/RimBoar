@@ -2,13 +2,13 @@
 #include "./pathfinder.hpp"
 
 // builtin
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <ostream>
 #include <queue>
 #include <vector>
-#include <algorithm>
 
 // local
 #include "../utils/logging/assert.hpp"
@@ -72,7 +72,8 @@ Pathfinder::Pathfinder(Graph const* const graph, const glm::u32vec2 world_size):
     }
 }
 
-std::optional<std::vector<glm::i32vec2>> Pathfinder::get_path(const glm::u32vec2 origin, const glm::u32vec2 target)
+std::optional<std::vector<glm::i32vec2>> Pathfinder::get_path(const glm::u32vec2 origin,
+                                                              const glm::u32vec2 target)
 {
     std::vector<glm::i32vec2> path{};
 

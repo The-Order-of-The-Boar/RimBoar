@@ -46,7 +46,9 @@ void GameScene::update(double const delta)
     {
         TimeMeasurer pathfinding_time{"Found path in"};
 
-        if (auto path = this->world->map.pathfinder->get_path(this->world->map.test_entity_index, this->world->map.test_target); path.has_value())
+        if (auto path = this->world->map.pathfinder->get_path(this->world->map.test_entity_index,
+                                                              this->world->map.test_target);
+            path.has_value())
             this->world->map.test_path = path.value();
         else
             this->world->map.test_path = {};

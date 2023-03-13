@@ -21,7 +21,8 @@
 
 SDLHandler::SDLHandler(const glm::i32vec2 window_size): window_size{window_size}
 {
-    auto const sdl_init_status = SDL_Init(SDL_INIT_VIDEO);
+    std::cout << "arg\n";
+    auto const sdl_init_status = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     rb_runtime_assert(sdl_init_status == 0, SDL_GetError());
 
     constexpr uint32_t WINDOW_FLAGS = SDL_WINDOW_SHOWN;

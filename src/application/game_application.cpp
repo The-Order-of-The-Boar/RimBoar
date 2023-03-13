@@ -27,13 +27,13 @@ void GameApplication::handle_input()
     {
         ImGui_ImplSDL2_ProcessEvent(&event);
         if (event.type == SDL_QUIT)
-            shall_quit = true;
+            this->shall_quit = true;
         else if (event.type == SDL_KEYDOWN)
         {
             switch (event.key.keysym.sym)
             {
                 case SDLK_ESCAPE:
-                    shall_quit = true;
+                    this->shall_quit = true;
                     continue;
 
                 default:
@@ -52,10 +52,10 @@ void GameApplication::change_scene(const SceneID scene_id)
             this->shall_quit = true;
             return;
         case MENU:
-            this->current_scene = std::make_unique<MenuScene>();
+            this->current_scene = std::make_unique<MenuScene>(&this->audio_manager);
             break;
         case GAME:
-            this->current_scene = std::make_unique<GameScene>();
+            this->current_scene = std::make_unique<GameScene>(&this->audio_manager);
             break;
         default:
             panic("Invalid Scene id");

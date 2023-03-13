@@ -3,16 +3,20 @@
 
 // third party
 #include <SDL.h>
+#include <SDL_audio.h>
+#include <SDL_mixer.h>
 #include <imgui.h>
 
 // local
 #include "../logging/log.hpp"
 #include "scene.hpp"
+#include "../audio/audio_manager.hpp"
 
-#include <chrono>
-#include <thread>
 
-MenuScene::MenuScene() {}
+MenuScene::MenuScene(AudioManager* const audio_manager) : Scene{audio_manager}
+{
+    this->audio_manager->play_music("menu.mp3");
+}
 
 MenuScene::~MenuScene() {}
 
@@ -45,6 +49,10 @@ void MenuScene::update_hud()
     {
         this->scene_status.close_scene = true;
         this->scene_status.next_scene = QUIT;
+    }
+    else if (ImGui::Button("Sound"))
+    {
+        this->audio_manager->play_sound("audio1.wav");
     }
 
     ImGui::End();

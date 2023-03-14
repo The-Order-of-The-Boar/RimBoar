@@ -101,6 +101,21 @@ void AudioManager::update_volumes()
     Mix_Volume(-1,MIX_MAX_VOLUME * this->sound_volume * this->general_volume);
 }
 
+float AudioManager::get_general_volume() const
+{
+    return this->general_volume;
+}
+
+float AudioManager::get_sound_volume() const
+{
+    return this->sound_volume;
+}
+
+float AudioManager::get_music_volume() const
+{
+    return this->music_volume;
+}
+
 void AudioManager::set_general_volume(const float volume)
 {
     this->general_volume = volume;

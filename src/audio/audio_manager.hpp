@@ -44,10 +44,14 @@ public:
 
     void play_sound(const std::string& sound_name);
     
+    float get_general_volume() const;
+    float get_sound_volume() const;
+    float get_music_volume() const;
+    
     void set_general_volume(const float volume);
     void set_sound_volume(const float volume);
     void set_music_volume(const float volume);
-    
+
     bool is_muted() const;
     void mute();
     void unmute();

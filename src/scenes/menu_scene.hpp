@@ -6,7 +6,7 @@
 class MenuScene : public Scene
 {
 private:
-    float volume = 1.0;
+    float volume;
 public:
     MenuScene(AudioManager* const audio_manager);
     ~MenuScene();

@@ -45,12 +45,12 @@ void MenuScene::update_hud()
         this->scene_status.close_scene = true;
         this->scene_status.next_scene = GAME;
     }
-    else if (ImGui::Button("Quit"))
+    if (ImGui::Button("Quit"))
     {
         this->scene_status.close_scene = true;
         this->scene_status.next_scene = QUIT;
     }
-    else if (ImGui::Button("Sound"))
+    if (ImGui::Button("Sound"))
     {
         this->audio_manager->play_sound("audio1.wav");
     }

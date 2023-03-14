@@ -19,11 +19,19 @@ private:
     std::map<std::string, Mix_Chunk*> loaded_sounds;
     std::map<std::string, Mix_Music*> loaded_musics;
 
+    float music_volume = 1.0;
+    float sound_volume = 1.0;
+    float general_volume = 1.0;
+
+    bool muted = false;
+
 private:
     void load_all_audio_files();
 
     void load_music(const std::filesystem::path& path);
     void load_sound(const std::filesystem::path& path);
+
+    void update_volumes();
 
 public:
     AudioManager();
@@ -35,5 +43,13 @@ public:
     void halt_music();
 
     void play_sound(const std::string& sound_name);
+    
+    void set_general_volume(const float volume);
+    void set_sound_volume(const float volume);
+    void set_music_volume(const float volume);
+    
+    bool is_muted() const;
+    void mute();
+    void unmute();
 
 };

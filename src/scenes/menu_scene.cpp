@@ -55,5 +55,24 @@ void MenuScene::update_hud()
         this->audio_manager->play_sound("audio1.wav");
     }
 
+    // Audio 
+    if(this->audio_manager->is_muted())
+    {
+        if(ImGui::Button("Unmute"))
+            this->audio_manager->unmute();
+    }
+    else
+    {
+        if(ImGui::Button("Mute"))
+            this->audio_manager->mute();
+    }
+
+    if(ImGui::SliderFloat("Volume", &this->volume , 0, 1))
+    {
+        this->audio_manager->set_general_volume(this->volume);
+    }
+
+
+
     ImGui::End();
 }

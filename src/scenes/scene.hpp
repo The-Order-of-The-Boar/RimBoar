@@ -25,14 +25,14 @@ struct SceneFinalizationStatus
 class Scene
 {
 public:
+
     SceneFinalizationStatus scene_status{};
     AudioManager* const audio_manager;
 
 public:
-    Scene(AudioManager* const audio_manager)
-        :audio_manager{audio_manager}
-        {}
-    
+
+    Scene(AudioManager* const audio_manager): audio_manager{audio_manager} {}
+
     virtual ~Scene(){};
 
     // Executed each frame, no access to rendering

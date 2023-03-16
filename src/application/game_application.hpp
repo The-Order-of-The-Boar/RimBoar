@@ -4,9 +4,9 @@
 #include <memory>
 
 // local
+#include "../audio/audio_manager.hpp"
 #include "../graphics/graphic_manager.hpp"
 #include "../scenes/scene.hpp"
-#include "../audio/audio_manager.hpp"
 
 
 class GameApplication

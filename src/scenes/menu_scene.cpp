@@ -8,12 +8,12 @@
 #include <imgui.h>
 
 // local
+#include "../audio/audio_manager.hpp"
 #include "../utils/logging/log.hpp"
 #include "scene.hpp"
-#include "../audio/audio_manager.hpp"
 
 
-MenuScene::MenuScene(AudioManager* const audio_manager) : Scene{audio_manager}
+MenuScene::MenuScene(AudioManager* const audio_manager): Scene{audio_manager}
 {
     this->audio_manager->play_music("menu.mp3");
     this->volume = audio_manager->get_general_volume();
@@ -51,18 +51,18 @@ void MenuScene::update_hud()
         this->audio_manager->play_sound("audio1.wav");
     }
 
-    // Audio 
-    if(this->audio_manager->is_muted())
+    // Audio
+    if (this->audio_manager->is_muted())
     {
-        if(ImGui::Button("Unmute"))
+        if (ImGui::Button("Unmute"))
             this->audio_manager->unmute();
     }
     else
     {
-        if(ImGui::Button("Mute"))
+        if (ImGui::Button("Mute"))
             this->audio_manager->mute();
     }
-    if(ImGui::SliderFloat("Volume", &this->volume , 0, 1))
+    if (ImGui::SliderFloat("Volume", &this->volume, 0, 1))
     {
         this->audio_manager->set_general_volume(this->volume);
     }

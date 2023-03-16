@@ -10,9 +10,9 @@ project(rimboar CXX)
 
 add_library(rimboar_int
     
-    src/logging/source_location.cpp
-    src/logging/log.cpp
-    src/logging/assert.cpp
+    src/utils/logging/source_location.cpp
+    src/utils/logging/log.cpp
+    src/utils/logging/assert.cpp
 
     src/graphics/graphic_manager.cpp
     src/graphics/imgui_handler.cpp

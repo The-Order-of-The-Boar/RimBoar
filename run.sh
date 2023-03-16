@@ -18,7 +18,7 @@ then
 fi
 
 if !([ -e "build" ]) || [ $build_type != "$(cat build/BUILD_TYPE)" ] || (any_newer_than build/rimboar src CMakeLists.txt build.sh run.sh); then
-    ./build.sh $build_type main
+    ./scripts/build.sh $build_type main
     touch build/rimboar
 fi
 

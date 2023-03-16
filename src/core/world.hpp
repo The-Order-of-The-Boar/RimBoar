@@ -12,39 +12,57 @@
 #include <glm/vec3.hpp>
 
 // local
-#include "../data_structures/graph.hpp"
+#include "../pathfinding/graph.hpp"
 #include "../pathfinding/pathfinder.hpp"
+#include "../slotmap/slotmap.hpp"
+
+
+
+class Unit
+{
+};
+
+struct UnitID
+{
+    SlotMap<Unit>::Key key;
+};
+
+
+
+class Wall
+{
+};
+
+struct WallID
+{
+    SlotMap<Wall>::Key key;
+};
+
 
 
 struct Tile
 {
-    enum class State
-    {
-        Emtpy,
-        Occupied,
-        Wall,
-    };
-
-    State state;
+    std::optional<SlotMap<Wall>::Key> wall = std::nullopt;
+    std::optional<SlotMap<Unit>::Key> unit = std::nullopt;
 
     std::optional<float> walk_speed() const;
+    bool is_occupied() const;
 };
 
 class Map
 {
 private:
 
-    const int32_t LINEAR_MOVEMENT_COST = 10;
-    const int32_t DIAGONAL_MOVEMENT_COST = 10;
+    static const int32_t LINEAR_MOVEMENT_COST = 10;
+    static const int32_t DIAGONAL_MOVEMENT_COST = 14;
 
     std::vector<std::vector<Tile>> data;
     size_t size_x;
     size_t size_y;
 
-
 private:
 
-    void update_tile_connections(const glm::i32vec2 index);
+    void update_tile_connections(const glm::u32vec2 index);
 
 public:
 
@@ -55,15 +73,13 @@ public:
     std::vector<glm::i32vec2> test_path;
     glm::i32vec2 test_entity_index{1, 1};
     glm::i32vec2 test_target;
-    // Temporary
-
 
 public:
 
     Map(glm::u32vec2 size, std::function<Tile(glm::u32vec2)> generator);
 
     glm::u32vec2 size() const;
-    bool is_inside_boundaries(const glm::i32vec2 index) const;
+    bool is_inside_boundaries(const glm::u32vec2 index) const;
     void update_graph_representation();
 
     Tile& get(size_t x, size_t y);
@@ -80,4 +96,19 @@ public:
 struct World
 {
     Map map;
+
+    struct
+    {
+        SlotMap<Unit> units;
+        SlotMap<Wall> walls;
+
+    } entities;
+
+public:
+
+    void push_unit(Unit unit, glm::u32vec2 position);
+    void push_wall(Wall wall, glm::u32vec2 position);
+
+    void remove_unit(glm::u32vec2 position);
+    void remove_wall(glm::u32vec2 position);
 };

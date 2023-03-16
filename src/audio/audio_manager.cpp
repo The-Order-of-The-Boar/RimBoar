@@ -10,7 +10,7 @@
 #include <SDL.h>
 
 // local
-#include "../logging/assert.hpp"
+#include "../utils/logging/assert.hpp"
 #include "../utils/time_utils.hpp"
 
 

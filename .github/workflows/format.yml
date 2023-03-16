@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: format
-      run: ./format.sh
+      run: ./scripts/format.sh
     - name: git status
       run: git status
     - name: check modifications

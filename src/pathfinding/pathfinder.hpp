@@ -4,61 +4,63 @@
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <optional>
 #include <queue>
+#include <vector>
 
 // third party
 #include <glm/ext/scalar_int_sized.hpp>
 #include <glm/ext/vector_int2_sized.hpp>
 #include <glm/vec2.hpp>
-#include <vector>
 
 class Graph;
 
 struct PathfindingNode
 {
-    glm::i32vec2 index;
-    int32_t origin_id = -1;
-    int32_t id = 0;
+    glm::u32vec2 index;
+    uint32_t origin_id = -1;
+    uint32_t id = 0;
 
-    int32_t movement_cost = 0;
-    int32_t total_cost = 0;
+    uint32_t movement_cost = 0;
+    uint32_t total_cost = 0;
     bool visited = false;
     bool initialized = false;
 
 
-    void setup(const int32_t movement_cost, const int32_t total_cost, const int32_t origin_id);
+    void setup(const uint32_t movement_cost, const uint32_t total_cost, const uint32_t origin_id);
 };
 
+template <>
+struct std::less<PathfindingNode*>
+{
+    bool operator()(PathfindingNode* const& a, PathfindingNode* const& b)
+    {
+        return a->total_cost > b->total_cost;
+    }
+};
 
 class Pathfinder
 {
 private:
 
-    static const int32_t LINEAR_MOVEMENT_COST = 10;
     Graph const* const graph;
-    const glm::i32vec2 world_size;
-
-    constexpr static auto pathfinding_node_compare =
-        [](PathfindingNode const* left, PathfindingNode const* right)
-    { return left->total_cost > right->total_cost; };
-
+    const glm::u32vec2 world_size;
 
     std::vector<PathfindingNode> node_poll;
-    std::priority_queue<PathfindingNode*, std::vector<PathfindingNode*>,
-                        decltype(pathfinding_node_compare)>
-        open_list{pathfinding_node_compare};
+    std::priority_queue<PathfindingNode*, std::vector<PathfindingNode*>> open_list{};
 
 private:
 
-    PathfindingNode* get_node(const int32_t id);
+    PathfindingNode* get_node(const uint32_t id);
     void reset_node_state();
 
 
 public:
 
-    Pathfinder(Graph const* const graph, const glm::i32vec2 world_size);
+    Pathfinder(Graph const* const graph, const glm::u32vec2 world_size);
     ~Pathfinder() = default;
 
-    static int32_t manhattan_distance(const glm::i32vec2 pos, const glm::i32vec2 target);
-    std::vector<glm::i32vec2> get_path(const glm::i32vec2 origin, glm::i32vec2 target);
+    static int32_t manhattan_distance(const glm::u32vec2 pos, const glm::u32vec2 target);
+    std::optional<std::vector<glm::i32vec2>> get_path(const glm::u32vec2 origin,
+                                                      glm::u32vec2 target);
 };

@@ -3,7 +3,7 @@
 
 // local
 #include "../application/config.hpp"
-#include "../logging/log.hpp"
+#include "../utils/logging/log.hpp"
 
 // builtin
 #include <iostream>

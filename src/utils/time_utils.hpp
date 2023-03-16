@@ -5,7 +5,7 @@
 #include <iostream>
 
 // local
-#include "../logging/log.hpp"
+#include "../utils/logging/log.hpp"
 
 struct TimeUnit
 {
@@ -17,9 +17,9 @@ class TimeMeasurer
 {
 public:
 
-    constexpr static const TimeUnit SECOND{"s", 1000000};
-    constexpr static const TimeUnit MILLISECOND{"ms", 1000};
-    constexpr static const TimeUnit MICROSECOND{"us", 1};
+    inline static const TimeUnit SECOND{"s", 1000000};
+    inline static const TimeUnit MILLISECOND{"ms", 1000};
+    inline static const TimeUnit MICROSECOND{"us", 1};
 
 private:
 

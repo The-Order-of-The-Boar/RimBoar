@@ -18,7 +18,7 @@
 #include "../utils/print_utils.hpp"
 #include "../utils/time_utils.hpp"
 #include "scene.hpp"
-
+#include "../audio/audio_manager.hpp"
 
 
 Map create_map(glm::u32vec2 size)
@@ -27,8 +27,9 @@ Map create_map(glm::u32vec2 size)
     return output;
 }
 
-GameScene::GameScene()
+GameScene::GameScene(AudioManager* audio_manager) : Scene{audio_manager}
 {
+    this->audio_manager->play_music("game.wav");
     this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
 
     this->world->push_unit({}, {1, 1});

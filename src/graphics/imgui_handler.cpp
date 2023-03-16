@@ -26,7 +26,7 @@ ImGuiHandler::ImGuiHandler(SDL_Window* window, SDL_Renderer* renderer, float sca
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-    auto font_path = fmt::format("assets/{}", config->default_font);
+    auto font_path = fmt::format("assets/fonts/{}", config->default_font);
     io.Fonts->AddFontFromFileTTF(font_path.c_str(), config->font_pixel_size * scale);
     ImGui::GetStyle().ScaleAllSizes(scale);
 

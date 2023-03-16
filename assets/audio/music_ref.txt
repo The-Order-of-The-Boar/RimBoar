@@ -1,0 +1,2 @@
+audio1.wav : mixkit-arcade-rising-231.wav from https://mixkit.co/free-sound-effects/arcade/
+menu.mp3 : menu-easy-lifestyle.mp3

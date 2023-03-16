@@ -34,7 +34,7 @@ private:
 
 public:
 
-    GameScene();
+    GameScene(AudioManager* audio_manager);
     ~GameScene();
 
     void update(double const delta) override;

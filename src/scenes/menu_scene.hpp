@@ -5,9 +5,10 @@
 
 class MenuScene : public Scene
 {
+private:
+    float volume;
 public:
-
-    MenuScene();
+    MenuScene(AudioManager* const audio_manager);
     ~MenuScene();
 
     void update(double const delta) override;

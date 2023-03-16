@@ -12,6 +12,10 @@
             "name": "sdl2"
         },
         {
+            "name": "sdl2-mixer",
+            "version>=": "2.6.1"
+        },
+        {
             "name":"imgui",
             "features":["sdl2-binding", "sdl2-renderer-binding"]
         },

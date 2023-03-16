@@ -30,6 +30,8 @@ add_library(rimboar_int
     src/utils/system.cpp
 
     src/pathfinding/pathfinder.cpp
+
+    src/audio/audio_manager.cpp
 )
 target_include_directories(rimboar_int INTERFACE src)
 
@@ -52,6 +54,9 @@ target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain
 
 find_package(SDL2 REQUIRED)
 target_link_libraries(rimboar_int PUBLIC SDL2::SDL2 SDL2::SDL2main)
+
+find_package(SDL2_mixer CONFIG REQUIRED)
+target_link_libraries(rimboar_int PUBLIC SDL2_mixer::SDL2_mixer-static)
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(rimboar_int PUBLIC imgui::imgui)

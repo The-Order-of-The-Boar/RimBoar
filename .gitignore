@@ -7,3 +7,5 @@
 /imgui.ini
 /.VSCodeCounter/
 *.prof
+/cmake-build*
+/.idea/

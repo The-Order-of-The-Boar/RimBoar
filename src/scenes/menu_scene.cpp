@@ -3,16 +3,21 @@
 
 // third party
 #include <SDL.h>
+#include <SDL_audio.h>
+#include <SDL_mixer.h>
 #include <imgui.h>
 
 // local
+#include "../audio/audio_manager.hpp"
 #include "../utils/logging/log.hpp"
 #include "scene.hpp"
 
-#include <chrono>
-#include <thread>
 
-MenuScene::MenuScene() {}
+MenuScene::MenuScene(AudioManager* const audio_manager): Scene{audio_manager}
+{
+    this->audio_manager->play_music("menu.mp3");
+    this->volume = audio_manager->get_general_volume();
+}
 
 MenuScene::~MenuScene() {}
 
@@ -41,11 +46,35 @@ void MenuScene::update_hud()
         this->scene_status.close_scene = true;
         this->scene_status.next_scene = GAME;
     }
-    else if (ImGui::Button("Quit"))
+    if (ImGui::Button("Sound"))
+    {
+        this->audio_manager->play_sound("audio1.wav");
+    }
+
+    // Audio
+    if (this->audio_manager->is_muted())
+    {
+        if (ImGui::Button("Unmute"))
+            this->audio_manager->unmute();
+    }
+    else
+    {
+        if (ImGui::Button("Mute"))
+            this->audio_manager->mute();
+    }
+    if (ImGui::SliderFloat("Volume", &this->volume, 0, 1))
+    {
+        this->audio_manager->set_general_volume(this->volume);
+    }
+
+    ImGui::NewLine();
+    if (ImGui::Button("Quit"))
     {
         this->scene_status.close_scene = true;
         this->scene_status.next_scene = QUIT;
     }
+
+
 
     ImGui::End();
 }

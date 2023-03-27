@@ -7,6 +7,7 @@
 #include <optional>
 
 struct SDL_Renderer;
+class AudioManager;
 
 enum SceneID
 {
@@ -25,9 +26,14 @@ class Scene
 {
 public:
 
-    virtual ~Scene(){};
-
     SceneFinalizationStatus scene_status{};
+    AudioManager* const audio_manager;
+
+public:
+
+    Scene(AudioManager* const audio_manager): audio_manager{audio_manager} {}
+
+    virtual ~Scene(){};
 
     // Executed each frame, no access to rendering
     virtual void update(double const delta) = 0;

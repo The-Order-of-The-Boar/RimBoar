@@ -4,6 +4,7 @@
 #include <memory>
 
 // local
+#include "../audio/audio_manager.hpp"
 #include "../graphics/graphic_manager.hpp"
 #include "../scenes/scene.hpp"
 
@@ -17,10 +18,10 @@ private:
 public:
 
     std::unique_ptr<Scene> current_scene = nullptr;
+    std::unique_ptr<GraphicManager> graphic_manager = nullptr;
+    AudioManager audio_manager;
 
 public:
-
-    std::unique_ptr<GraphicManager> graphic_manager = nullptr;
 
     void setup();
     void run();

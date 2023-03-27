@@ -11,6 +11,7 @@
 #include <imgui.h>
 
 // local
+#include "../audio/audio_manager.hpp"
 #include "../core/world.hpp"
 #include "../pathfinding/pathfinder.hpp"
 #include "../utils/logging/assert.hpp"
@@ -20,15 +21,15 @@
 #include "scene.hpp"
 
 
-
 Map create_map(glm::u32vec2 size)
 {
     auto output = Map{size, [&](glm::u32vec2) { return Tile{}; }};
     return output;
 }
 
-GameScene::GameScene()
+GameScene::GameScene(AudioManager* audio_manager): Scene{audio_manager}
 {
+    this->audio_manager->play_music("game.wav");
     this->world = std::unique_ptr<World>{new World{.map = create_map({10, 10})}};
 
     this->world->push_unit({}, {1, 1});

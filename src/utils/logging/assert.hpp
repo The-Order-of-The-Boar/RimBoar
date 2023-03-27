@@ -9,7 +9,7 @@
 
 
 
-inline bool assert_exception = false;
+extern bool const assert_exception;
 
 class AssertException final : std::exception
 {

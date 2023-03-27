@@ -18,7 +18,7 @@ char const* AssertException::what() const noexcept
 
 void rb_assert(bool result, std::string const& message, SourceLocation location)
 {
-#ifndef NDEBUG
+#if !defined NDEBUG || defined TEST_BUILD
 
     rb_runtime_assert(result, message, location);
 

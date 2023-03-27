@@ -17,6 +17,10 @@
 
 
 
+bool const assert_exception = false;
+
+
+
 int main()
 {
     notice(fmt::format("{}", get_binary_path().c_str()));

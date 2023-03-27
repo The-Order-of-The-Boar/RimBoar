@@ -95,6 +95,7 @@ foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
         $<$<CONFIG:PROFILE>:-Wl,-no-as-needed -lm -lprofiler>
 
         $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
+        $<$<CONFIG:TEST_RELEASE>:-DTEST_BUILD>
         $<$<CONFIG:RELEASE,PROFILE>:-O3>
         $<$<CONFIG:RELEASE,PROFILE>:-flto>
         $<$<CONFIG:RELEASE,PROFILE>:-march=native>

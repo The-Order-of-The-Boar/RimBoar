@@ -4,11 +4,7 @@
 
 #include <utils/logging/assert.hpp>
 
-static bool __set_assert_exception = []
-{
-    assert_exception = true;
-    return true;
-}();
+bool const assert_exception = true;
 
 #include <catch2/catch_test_macros.hpp>
 

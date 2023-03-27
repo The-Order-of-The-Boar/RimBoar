@@ -15,7 +15,7 @@ fi
 build_type=$1
 target=$2
 
-if [ $build_type != "Debug" ] && [ $build_type != "Release" ] && [ $build_type != "Sanitize" ] && [ $build_type != "Profile" ]; then
+if [ $build_type != "Debug" ] && [ $build_type != "Release" ] && [ $build_type != "Sanitize" ] && [ $build_type != "Profile" ] && [ $build_type != "Test_Release" ]; then
     echo "invalid build mode"
     exit 1
 fi

@@ -54,7 +54,7 @@ jobs:
     - name: init
       run: ./scripts/init.sh
     - name: build
-      run: ./scripts/build.py Debug main
+      run: ./scripts/build.py main debug
         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

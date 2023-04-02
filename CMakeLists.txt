@@ -85,8 +85,6 @@ foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
     target_link_libraries(${target} PRIVATE
 
         $<$<CONFIG:RELEASE,PROFILE>:-flto>
-        $<$<CONFIG:PROFILE>:-lprofiler>
-
         $<$<CONFIG:SANITIZE>:-fsanitize=address>
         $<$<CONFIG:SANITIZE>:-fsanitize=undefined>
         )

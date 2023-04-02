@@ -9,3 +9,4 @@
 *.prof
 /cmake-build*
 /.idea/
+**/__pycache__/

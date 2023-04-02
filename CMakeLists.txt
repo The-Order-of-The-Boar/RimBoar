@@ -85,10 +85,11 @@ foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
     target_link_libraries(${target} PRIVATE
 
         $<$<CONFIG:RELEASE,PROFILE>:-flto>
+        $<$<CONFIG:PROFILE>:-lprofiler>
 
         $<$<CONFIG:SANITIZE>:-fsanitize=address>
         $<$<CONFIG:SANITIZE>:-fsanitize=undefined>
-    )
+        )
 
     target_compile_options(${target} PRIVATE
 
@@ -97,7 +98,6 @@ foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
         -fdiagnostics-color=always
 
         $<$<CONFIG:DEBUG,PROFILE,SANITIZE>:-g>
-        $<$<CONFIG:PROFILE>:-Wl,-no-as-needed -lm -lprofiler>
 
         $<$<CONFIG:RELEASE,PROFILE>:-DNDEBUG>
         $<$<CONFIG:TEST_RELEASE>:-DTEST_BUILD>

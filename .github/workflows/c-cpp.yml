@@ -16,7 +16,7 @@ jobs:
     - name: init
       run: ./scripts/init.sh
     - name: build
-      run: ./scripts/build.sh Debug main
+      run: ./scripts/build.py main debug
 
   test:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
     - name: init
       run: ./scripts/init.sh
     - name: test
-      run: ./scripts/test.sh
+      run: ./scripts/test.py
     
   benchmark:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
     - name: init
       run: ./scripts/init.sh
     - name: test
-      run: ./scripts/benchmark.sh
+      run: ./scripts/benchmark.py
       
   codeQL-analysis:
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
     - name: init
       run: ./scripts/init.sh
     - name: build
-      run: ./scripts/build.sh Debug main
+      run: ./scripts/build.py Debug main
         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

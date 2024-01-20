@@ -15,8 +15,8 @@
 
 
 template <typename T>
-class SlotMap {
-
+class SlotMap
+{
 private:
 
     // it is theoretically and practically impossible for an item to exist with the maximum
@@ -24,13 +24,14 @@ private:
     static inline size_t NONE = SIZE_MAX;
     using Version = uint64_t;
 
-    enum class SlotType {
+    enum class SlotType
+    {
         Empty,
         Occupied
     };
 
-    class Slot {
-
+    class Slot
+    {
     private:
 
         Version m_version;
@@ -40,7 +41,9 @@ private:
     private:
 
         Slot(Version version, SlotType type, size_t idx_or_next_free):
-            m_version(version), m_type(type), m_idx_or_next_free(idx_or_next_free) {}
+            m_version(version), m_type(type), m_idx_or_next_free(idx_or_next_free)
+        {
+        }
 
     public:
 
@@ -49,84 +52,79 @@ private:
         Slot(Slot const&) = delete;
         Slot& operator=(Slot const&) = delete;
 
-        static Slot new_empty(size_t next_free) {
-
+        static Slot new_empty(size_t next_free)
+        {
             return Slot{0, SlotType::Empty, next_free};
         }
 
-        void to_occupied(size_t idx) {
-
+        void to_occupied(size_t idx)
+        {
             rb_runtime_assert(m_type == SlotType::Empty);
             m_type = SlotType::Occupied;
             m_idx_or_next_free = idx;
         }
 
-        void to_empty(size_t next_free) {
-
+        void to_empty(size_t next_free)
+        {
             rb_assert(m_type == SlotType::Occupied);
             m_type = SlotType::Empty;
             m_idx_or_next_free = next_free;
             m_version += 1;
         }
 
-        size_t new_idx(size_t idx) {
-
+        size_t new_idx(size_t idx)
+        {
             rb_assert(m_type == SlotType::Occupied);
             auto output = m_idx_or_next_free;
             m_idx_or_next_free = idx;
             return output;
         }
 
-        [[nodiscard]]
-        bool is_empty() const {
-
+        [[nodiscard]] bool is_empty() const
+        {
             return m_type == SlotType::Empty;
         }
 
-        [[nodiscard]]
-        bool is_occupied() const {
-
+        [[nodiscard]] bool is_occupied() const
+        {
             return m_type == SlotType::Occupied;
         }
 
-        [[nodiscard]]
-        size_t get_next_free() const {
-
+        [[nodiscard]] size_t get_next_free() const
+        {
             rb_assert(this->is_empty());
             return this->m_idx_or_next_free;
         }
 
-        [[nodiscard]]
-        size_t get_idx() const {
-
+        [[nodiscard]] size_t get_idx() const
+        {
             rb_assert(this->is_occupied());
             return this->m_idx_or_next_free;
         }
 
-        [[nodiscard]]
-        Version get_version() const {
-
+        [[nodiscard]] Version get_version() const
+        {
             return m_version;
         }
     };
     static_assert(sizeof(Slot) > 1);
 
-    struct DataSlot {
-
+    struct DataSlot
+    {
         size_t m_slot_idx;
         T m_value;
     };
 
-    class Iterator {
-
+    class Iterator
+    {
         // todo: impl
     };
 
 
 public:
 
-    class Key {
-
+    class Key
+    {
         friend SlotMap;
 
         Version m_version;
@@ -135,22 +133,19 @@ public:
         Key(Version version, size_t idx): m_version(version), m_idx(idx) {}
 
     public:
-        
-        [[nodiscard]]
-        static Key __build_key(size_t idx, Version version) {
 
+        [[nodiscard]] static Key __build_key(size_t idx, Version version)
+        {
             return Key{version, idx};
         }
-        
-        [[nodiscard]]
-        size_t get_idx() const {
-            
+
+        [[nodiscard]] size_t get_idx() const
+        {
             return m_idx;
         }
-        
-        [[nodiscard]]
-        Version get_version() {
-            
+
+        [[nodiscard]] Version get_version()
+        {
             return m_version;
         }
     };
@@ -168,9 +163,8 @@ public:
 
     SlotMap(): m_next_free_head(NONE), m_slots(), m_data(), m_size(0) {}
 
-    [[nodiscard]]
-    bool contains(Key key) const {
-
+    [[nodiscard]] bool contains(Key key) const
+    {
         if (key.m_idx >= m_slots.size())
             return false;
 
@@ -185,15 +179,14 @@ public:
         return true;
     }
 
-    [[nodiscard]]
-    T& get(Key key) {
-
+    [[nodiscard]] T& get(Key key)
+    {
         rb_runtime_assert(this->contains(key));
         return m_data[m_slots[key.m_idx].get_idx()].m_value;
     }
 
-    Key push(T&& new_item) {
-
+    Key push(T&& new_item)
+    {
         // aloca um novo slot vazio caso não haja nenhum disponível
         if (m_next_free_head == NONE)
             this->push_empty_slot();
@@ -230,8 +223,8 @@ public:
         return key;
     }
 
-    T remove(Key key) {
-
+    T remove(Key key)
+    {
         rb_runtime_assert(this->contains(key));
 
         auto slot_idx = key.m_idx;
@@ -249,32 +242,31 @@ public:
         return item;
     }
 
-    size_t size() const {
-        
+    size_t size() const
+    {
         return m_size;
     }
 
-    [[nodiscard]]
-    size_t capacity() {
-        
+    [[nodiscard]] size_t capacity()
+    {
         return m_slots.size();
     }
 
 
 private:
 
-    size_t push_empty_slot() {
-
+    size_t push_empty_slot()
+    {
         m_slots.push_back(Slot::new_empty(NONE));
         m_next_free_head = m_slots.size() - 1;
     }
 
-    T swap_remove_data(size_t idx) {
-
+    T swap_remove_data(size_t idx)
+    {
         rb_assert(idx < m_data.size());
 
-        if (idx == m_data.size() - 1) {
-
+        if (idx == m_data.size() - 1)
+        {
             T output = std::move(m_data[m_data.size() - 1].m_value);
             m_data.pop_back();
             return output;

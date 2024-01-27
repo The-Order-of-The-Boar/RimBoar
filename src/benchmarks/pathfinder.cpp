@@ -31,7 +31,7 @@ std::unique_ptr<World> create_world(const glm::i32vec2 size)
         new World{.map = Map{size, [&](glm::u32vec2) { return Tile{}; }}}};
 }
 
-TEST_CASE("Pathfinding Benchmark", "[!benchmark]")
+TEST_CASE("Pathfinding Benchmark", "[benchmark]")
 {
     RandomGenerator::setup();
     const glm::i32vec2 size{100, 100};

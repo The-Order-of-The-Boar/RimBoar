@@ -17,3 +17,9 @@ path = "."
 name = "test_rimboar"
 path = "."
 is_test = true
+
+[[project.targets.executable]]
+name = "benchmark_rimboar"
+path = "."
+is_test = true
+exclude_from_all = true

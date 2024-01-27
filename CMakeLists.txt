@@ -43,15 +43,22 @@ add_executable(test_rimboar
 
     src/tests/test.cpp
     src/tests/slotmap.cpp
-    src/tests/pathfinder.cpp
 )
 target_link_libraries(test_rimboar PRIVATE rimboar_int)
+
+add_executable(benchmark_rimboar
+
+    src/benchmarks/benchmark.cpp
+    src/benchmarks/pathfinder.cpp
+)
+target_link_libraries(benchmark_rimboar PRIVATE rimboar_int)
 
 
 # dependencies
 
 find_package(Catch2 REQUIRED)
 target_link_libraries(test_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
+target_link_libraries(benchmark_rimboar PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
 
 find_package(SDL2 REQUIRED)
 target_link_libraries(rimboar_int PUBLIC SDL2::SDL2 SDL2::SDL2main)
@@ -81,7 +88,7 @@ if ((NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") AND (NOT "${CMAKE_CXX_COMPIL
     message(FATAL "unsupported compiler")
 endif()
 
-foreach(target IN ITEMS rimboar_int rimboar test_rimboar)
+foreach(target IN ITEMS rimboar_int rimboar test_rimboar benchmark_rimboar)
     
     target_link_libraries(${target} PRIVATE
 

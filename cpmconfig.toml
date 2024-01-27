@@ -1,0 +1,19 @@
+[project]
+src_folder = "src"
+main_target = "rimboar"
+build_types = ["Debug", "Release", "Profile", "Test_Release"]
+default_build_type = "Debug"
+
+
+[[project.targets.library]]
+name = "rimboar_int"
+path = "."
+
+[[project.targets.executable]]
+name = "rimboar"
+path = "."
+
+[[project.targets.executable]]
+name = "test_rimboar"
+path = "."
+is_test = true

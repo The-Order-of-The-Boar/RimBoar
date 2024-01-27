@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "cpm"
+version = "0.1.5"
+description = ""
+authors = ["gabrielcfvg <gabrielcfvg@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+pyinstaller = "^6.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

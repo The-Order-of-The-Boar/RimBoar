@@ -1,0 +1,22 @@
+[project]
+src_folder = "src"
+main_target = "main"
+build_types = ["Debug", "Release"]
+default_build_type = "Debug"
+
+[[project.targets.executable]]
+name = "main"
+path = "main"
+
+[[project.targets.executable]]
+name = "tests"
+path = "tests"
+is_test = true
+
+[[project.targets.library]]
+name = "core"
+path = "core"
+
+[[project.targets.library]]
+name = "utils"
+path = "utils"

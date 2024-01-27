@@ -1,1 +1,2 @@
 deps/gsm;git@github.com:gabrielcfvg/gsm.git;semver;0.1.3
+deps/cpm;git@github.com:gabrielcfvg/cpm.git;semver;0.1.5

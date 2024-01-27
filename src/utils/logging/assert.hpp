@@ -11,7 +11,7 @@
 
 extern bool const assert_exception;
 
-class AssertException final : std::exception
+class AssertException final: public std::exception
 {
 private:
 

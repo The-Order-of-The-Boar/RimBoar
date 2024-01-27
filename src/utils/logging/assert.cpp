@@ -38,7 +38,7 @@ void rb_runtime_assert(bool result, std::string const& message, SourceLocation l
         panic_message = fmt::format("assertion failed: {}", message);
 
     if (assert_exception == true)
-        throw AssertException{panic_message};
+        throw AssertException{fmt::format("{}: ({}:{})", panic_message, location.filename, location.line_number)};
     else
         panic(panic_message, location);
 }
